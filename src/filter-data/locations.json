@@ -1,0 +1,977 @@
+{"locations": [
+  {
+    "name": "Blekinge län",
+    "items": [
+      {
+        "name": "Karlshamn"
+      },
+      {
+        "name": "Karlskrona"
+      },
+      {
+        "name": "Olofström"
+      },
+      {
+        "name": "Ronneby"
+      },
+      {
+        "name": "Sölvesborg"
+      }
+    ]
+  },
+  {
+    "name": "Dalarnas län",
+    "items": [
+      {
+        "name": "Avesta"
+      },
+      {
+        "name": "Borlänge"
+      },
+      {
+        "name": "Falun"
+      },
+      {
+        "name": "Gagnef"
+      },
+      {
+        "name": "Hedemora"
+      },
+      {
+        "name": "Leksand"
+      },
+      {
+        "name": "Ludvika"
+      },
+      {
+        "name": "Malung-Sälen"
+      },
+      {
+        "name": "Mora"
+      },
+      {
+        "name": "Orsa"
+      },
+      {
+        "name": "Rättvik"
+      },
+      {
+        "name": "Smedjebacken"
+      },
+      {
+        "name": "Säter"
+      },
+      {
+        "name": "Vansbro"
+      },
+      {
+        "name": "Älvdalen"
+      }
+    ]
+  },
+  {
+    "name": "Gotlands län",
+    "items": [
+      {
+        "name": "Gotland"
+      }
+    ]
+  },
+  {
+    "name": "Gävleborgs län",
+    "items": [
+      {
+        "name": "Bollnäs"
+      },
+      {
+        "name": "Gävle"
+      },
+      {
+        "name": "Hofors"
+      },
+      {
+        "name": "Hudiksvall"
+      },
+      {
+        "name": "Ljusdal"
+      },
+      {
+        "name": "Nordanstig"
+      },
+      {
+        "name": "Ockelbo"
+      },
+      {
+        "name": "Ovanåker"
+      },
+      {
+        "name": "Sandviken"
+      },
+      {
+        "name": "Söderhamn"
+      }
+    ]
+  },
+  {
+    "name": "Hallands län",
+    "items": [
+      {
+        "name": "Falkenberg"
+      },
+      {
+        "name": "Halmstad"
+      },
+      {
+        "name": "Hylte"
+      },
+      {
+        "name": "Kungsbacka"
+      },
+      {
+        "name": "Laholm"
+      },
+      {
+        "name": "Varberg"
+      }
+    ]
+  },
+  {
+    "name": "Jämtlands län",
+    "items": [
+      {
+        "name": "Berg"
+      },
+      {
+        "name": "Bräcke"
+      },
+      {
+        "name": "Härjedalen"
+      },
+      {
+        "name": "Krokom"
+      },
+      {
+        "name": "Ragunda"
+      },
+      {
+        "name": "Strömsund"
+      },
+      {
+        "name": "Åre"
+      },
+      {
+        "name": "Östersund"
+      }
+    ]
+  },
+  {
+    "name": "Jönköpings län",
+    "items": [
+      {
+        "name": "Aneby"
+      },
+      {
+        "name": "Eksjö"
+      },
+      {
+        "name": "Gislaved"
+      },
+      {
+        "name": "Gnosjö"
+      },
+      {
+        "name": "Habo"
+      },
+      {
+        "name": "Jönköping"
+      },
+      {
+        "name": "Mullsjö"
+      },
+      {
+        "name": "Nässjö"
+      },
+      {
+        "name": "Sävsjö"
+      },
+      {
+        "name": "Tranås"
+      },
+      {
+        "name": "Vaggeryd"
+      },
+      {
+        "name": "Vetlanda"
+      },
+      {
+        "name": "Värnamo"
+      }
+    ]
+  },
+  {
+    "name": "Kalmar län",
+    "items": [
+      {
+        "name": "Borgholm"
+      },
+      {
+        "name": "Emmaboda"
+      },
+      {
+        "name": "Hultsfred"
+      },
+      {
+        "name": "Högsby"
+      },
+      {
+        "name": "Kalmar"
+      },
+      {
+        "name": "Mönsterås"
+      },
+      {
+        "name": "Mörbylånga"
+      },
+      {
+        "name": "Nybro"
+      },
+      {
+        "name": "Oskarshamn"
+      },
+      {
+        "name": "Torsås"
+      },
+      {
+        "name": "Vimmerby"
+      },
+      {
+        "name": "Västervik"
+      }
+    ]
+  },
+  {
+    "name": "Kronobergs län",
+    "items": [
+      {
+        "name": "Alvesta"
+      },
+      {
+        "name": "Lessebo"
+      },
+      {
+        "name": "Ljungby"
+      },
+      {
+        "name": "Markaryd"
+      },
+      {
+        "name": "Tingsryd"
+      },
+      {
+        "name": "Uppvidinge"
+      },
+      {
+        "name": "Växjö"
+      },
+      {
+        "name": "Älmhult"
+      }
+    ]
+  },
+  {
+    "name": "Norrbottens län",
+    "items": [
+      {
+        "name": "Arjeplog"
+      },
+      {
+        "name": "Arvidsjaur"
+      },
+      {
+        "name": "Boden"
+      },
+      {
+        "name": "Gällivare"
+      },
+      {
+        "name": "Haparanda"
+      },
+      {
+        "name": "Jokkmokk"
+      },
+      {
+        "name": "Kalix"
+      },
+      {
+        "name": "Kiruna"
+      },
+      {
+        "name": "Luleå"
+      },
+      {
+        "name": "Pajala"
+      },
+      {
+        "name": "Piteå"
+      },
+      {
+        "name": "Älvsbyn"
+      },
+      {
+        "name": "Överkalix"
+      },
+      {
+        "name": "Övertorneå"
+      }
+    ]
+  },
+  {
+    "name": "Skåne län",
+    "items": [
+      {
+        "name": "Bjuv"
+      },
+      {
+        "name": "Bromölla"
+      },
+      {
+        "name": "Burlöv"
+      },
+      {
+        "name": "Båstad"
+      },
+      {
+        "name": "Eslöv"
+      },
+      {
+        "name": "Helsingborg"
+      },
+      {
+        "name": "Hässleholm"
+      },
+      {
+        "name": "Höganäs"
+      },
+      {
+        "name": "Hörby"
+      },
+      {
+        "name": "Höör"
+      },
+      {
+        "name": "Klippan"
+      },
+      {
+        "name": "Kristianstad"
+      },
+      {
+        "name": "Kävlinge"
+      },
+      {
+        "name": "Landskrona"
+      },
+      {
+        "name": "Lomma"
+      },
+      {
+        "name": "Lund"
+      },
+      {
+        "name": "Malmö"
+      },
+      {
+        "name": "Osby"
+      },
+      {
+        "name": "Perstorp"
+      },
+      {
+        "name": "Simrishamn"
+      },
+      {
+        "name": "Sjöbo"
+      },
+      {
+        "name": "Skurup"
+      },
+      {
+        "name": "Staffanstorp"
+      },
+      {
+        "name": "Svalöv"
+      },
+      {
+        "name": "Svedala"
+      },
+      {
+        "name": "Tomelilla"
+      },
+      {
+        "name": "Trelleborg"
+      },
+      {
+        "name": "Vellinge"
+      },
+      {
+        "name": "Ystad"
+      },
+      {
+        "name": "Ängelholm"
+      },
+      {
+        "name": "Åstorp"
+      },
+      {
+        "name": "Örkelljunga"
+      },
+      {
+        "name": "Östra Göinge"
+      }
+    ]
+  },
+  {
+    "name": "Stockholms län",
+    "items": [
+      {
+        "name": "Botkyrka"
+      },
+      {
+        "name": "Danderyd"
+      },
+      {
+        "name": "Ekerö"
+      },
+      {
+        "name": "Haninge"
+      },
+      {
+        "name": "Huddinge"
+      },
+      {
+        "name": "Järfälla"
+      },
+      {
+        "name": "Lidingö"
+      },
+      {
+        "name": "Nacka"
+      },
+      {
+        "name": "Norrtälje"
+      },
+      {
+        "name": "Nykvarn"
+      },
+      {
+        "name": "Nynäshamn"
+      },
+      {
+        "name": "Salem"
+      },
+      {
+        "name": "Sigtuna"
+      },
+      {
+        "name": "Sollentuna"
+      },
+      {
+        "name": "Solna"
+      },
+      {
+        "name": "Stockholm"
+      },
+      {
+        "name": "Sundbyberg"
+      },
+      {
+        "name": "Södertälje"
+      },
+      {
+        "name": "Tyresö"
+      },
+      {
+        "name": "Täby"
+      },
+      {
+        "name": "Upplands Väsby"
+      },
+      {
+        "name": "Upplands-Bro"
+      },
+      {
+        "name": "Vallentuna"
+      },
+      {
+        "name": "Vaxholm"
+      },
+      {
+        "name": "Värmdö"
+      },
+      {
+        "name": "Österåker"
+      }
+    ]
+  },
+  {
+    "name": "Södermanlands län",
+    "items": [
+      {
+        "name": "Eskilstuna"
+      },
+      {
+        "name": "Flen"
+      },
+      {
+        "name": "Gnesta"
+      },
+      {
+        "name": "Katrineholm"
+      },
+      {
+        "name": "Nyköping"
+      },
+      {
+        "name": "Oxelösund"
+      },
+      {
+        "name": "Strängnäs"
+      },
+      {
+        "name": "Trosa"
+      },
+      {
+        "name": "Vingåker"
+      }
+    ]
+  },
+  {
+    "name": "Uppsala län",
+    "items": [
+      {
+        "name": "Enköping"
+      },
+      {
+        "name": "Heby"
+      },
+      {
+        "name": "Håbo"
+      },
+      {
+        "name": "Knivsta"
+      },
+      {
+        "name": "Tierp"
+      },
+      {
+        "name": "Uppsala"
+      },
+      {
+        "name": "Älvkarleby"
+      },
+      {
+        "name": "Östhammar"
+      }
+    ]
+  },
+  {
+    "name": "Värmlands län",
+    "items": [
+      {
+        "name": "Arvika"
+      },
+      {
+        "name": "Eda"
+      },
+      {
+        "name": "Filipstad"
+      },
+      {
+        "name": "Forshaga"
+      },
+      {
+        "name": "Grums"
+      },
+      {
+        "name": "Hagfors"
+      },
+      {
+        "name": "Hammarö"
+      },
+      {
+        "name": "Karlstad"
+      },
+      {
+        "name": "Kil"
+      },
+      {
+        "name": "Kristinehamn"
+      },
+      {
+        "name": "Munkfors"
+      },
+      {
+        "name": "Storfors"
+      },
+      {
+        "name": "Sunne"
+      },
+      {
+        "name": "Säffle"
+      },
+      {
+        "name": "Torsby"
+      },
+      {
+        "name": "Årjäng"
+      }
+    ]
+  },
+  {
+    "name": "Västerbottens län",
+    "items": [
+      {
+        "name": "Bjurholm"
+      },
+      {
+        "name": "Dorotea"
+      },
+      {
+        "name": "Lycksele"
+      },
+      {
+        "name": "Malå"
+      },
+      {
+        "name": "Nordmaling"
+      },
+      {
+        "name": "Norsjö"
+      },
+      {
+        "name": "Robertsfors"
+      },
+      {
+        "name": "Skellefteå"
+      },
+      {
+        "name": "Sorsele"
+      },
+      {
+        "name": "Storuman"
+      },
+      {
+        "name": "Umeå"
+      },
+      {
+        "name": "Vilhelmina"
+      },
+      {
+        "name": "Vindeln"
+      },
+      {
+        "name": "Vännäs"
+      },
+      {
+        "name": "Åsele"
+      }
+    ]
+  },
+  {
+    "name": "Västernorrlands län",
+    "items": [
+      {
+        "name": "Härnösand"
+      },
+      {
+        "name": "Kramfors"
+      },
+      {
+        "name": "Sollefteå"
+      },
+      {
+        "name": "Sundsvall"
+      },
+      {
+        "name": "Timrå"
+      },
+      {
+        "name": "Ånge"
+      },
+      {
+        "name": "Örnsköldsvik"
+      }
+    ]
+  },
+  {
+    "name": "Västmanlands län",
+    "items": [
+      {
+        "name": "Arboga"
+      },
+      {
+        "name": "Fagersta"
+      },
+      {
+        "name": "Hallstahammar"
+      },
+      {
+        "name": "Kungsör"
+      },
+      {
+        "name": "Köping"
+      },
+      {
+        "name": "Norberg"
+      },
+      {
+        "name": "Sala"
+      },
+      {
+        "name": "Skinnskatteberg"
+      },
+      {
+        "name": "Surahammar"
+      },
+      {
+        "name": "Västerås"
+      }
+    ]
+  },
+  {
+    "name": "Västra Götalands län",
+    "items": [
+      {
+        "name": "Ale"
+      },
+      {
+        "name": "Alingsås"
+      },
+      {
+        "name": "Bengtsfors"
+      },
+      {
+        "name": "Bollebygd"
+      },
+      {
+        "name": "Borås"
+      },
+      {
+        "name": "Dals-Ed"
+      },
+      {
+        "name": "Essunga"
+      },
+      {
+        "name": "Falköping"
+      },
+      {
+        "name": "Färgelanda"
+      },
+      {
+        "name": "Grästorp"
+      },
+      {
+        "name": "Gullspång"
+      },
+      {
+        "name": "Göteborg"
+      },
+      {
+        "name": "Götene"
+      },
+      {
+        "name": "Herrljunga"
+      },
+      {
+        "name": "Hjo"
+      },
+      {
+        "name": "Härryda"
+      },
+      {
+        "name": "Karlsborg"
+      },
+      {
+        "name": "Kungälv"
+      },
+      {
+        "name": "Lerum"
+      },
+      {
+        "name": "Lidköping"
+      },
+      {
+        "name": "Lilla Edet"
+      },
+      {
+        "name": "Lysekil"
+      },
+      {
+        "name": "Mariestad"
+      },
+      {
+        "name": "Mark"
+      },
+      {
+        "name": "Mellerud"
+      },
+      {
+        "name": "Munkedal"
+      },
+      {
+        "name": "Mölndal"
+      },
+      {
+        "name": "Orust"
+      },
+      {
+        "name": "Partille"
+      },
+      {
+        "name": "Skara"
+      },
+      {
+        "name": "Skövde"
+      },
+      {
+        "name": "Sotenäs"
+      },
+      {
+        "name": "Stenungsund"
+      },
+      {
+        "name": "Strömstad"
+      },
+      {
+        "name": "Svenljunga"
+      },
+      {
+        "name": "Tanum"
+      },
+      {
+        "name": "Tibro"
+      },
+      {
+        "name": "Tidaholm"
+      },
+      {
+        "name": "Tjörn"
+      },
+      {
+        "name": "Tranemo"
+      },
+      {
+        "name": "Trollhättan"
+      },
+      {
+        "name": "Töreboda"
+      },
+      {
+        "name": "Uddevalla"
+      },
+      {
+        "name": "Ulricehamn"
+      },
+      {
+        "name": "Vara"
+      },
+      {
+        "name": "Vänersborg"
+      },
+      {
+        "name": "Vårgårda"
+      },
+      {
+        "name": "Åmål"
+      },
+      {
+        "name": "Öckerö"
+      }
+    ]
+  },
+  {
+    "name": "Örebro län",
+    "items": [
+      {
+        "name": "Askersund"
+      },
+      {
+        "name": "Degerfors"
+      },
+      {
+        "name": "Hallsberg"
+      },
+      {
+        "name": "Hällefors"
+      },
+      {
+        "name": "Karlskoga"
+      },
+      {
+        "name": "Kumla"
+      },
+      {
+        "name": "Laxå"
+      },
+      {
+        "name": "Lekeberg"
+      },
+      {
+        "name": "Lindesberg"
+      },
+      {
+        "name": "Ljusnarsberg"
+      },
+      {
+        "name": "Nora"
+      },
+      {
+        "name": "Örebro"
+      }
+    ]
+  },
+  {
+    "name": "Östergötlands län",
+    "items": [
+      {
+        "name": "Boxholm"
+      },
+      {
+        "name": "Finspång"
+      },
+      {
+        "name": "Kinda"
+      },
+      {
+        "name": "Linköping"
+      },
+      {
+        "name": "Mjölby"
+      },
+      {
+        "name": "Motala"
+      },
+      {
+        "name": "Norrköping"
+      },
+      {
+        "name": "Söderköping"
+      },
+      {
+        "name": "Vadstena"
+      },
+      {
+        "name": "Valdemarsvik"
+      },
+      {
+        "name": "Ydre"
+      },
+      {
+        "name": "Åtvidaberg"
+      },
+      {
+        "name": "Ödeshög"
+      }
+    ]
+  }
+]}
