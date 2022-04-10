@@ -9,7 +9,8 @@ const Container = styled.div`
   display: flex;
   justify-content: flex-start;
   align-items: center;
-  background-color: #1c2026;
+  background-color: #333537;
+  background: linear-gradient(to right, #cb1d90, #bf342a, #e87a14);
   width: 100%;
   flex-direction: column;
   overflow: hidden;
@@ -18,15 +19,15 @@ const Container = styled.div`
 `;
 
 const Search = styled.div`
-  background-color: #1e1d1d;
+  background-color: #1e1d1dad;
   padding: 50px 20px 20px 20px;
-  border-radius: 5px;
+  border-radius: 8px;
   box-shadow: -6px 6px 3px 3px rgba(0, 0, 0, 0.3);
   margin-bottom: 45px;
 `;
 
 const SearchBar = styled.input`
-  width: 500px;
+  width: 600px;
   height: 60px;
   border-radius: 5px;
   background-color: white;
@@ -46,7 +47,7 @@ function App() {
     if (inputValue === "") {
       await axios
         .get("http://localhost:8000/api/jobs")
-        .then((res) => console.log(res));
+        .then((res) => convertJson(res.data));
     } else {
       await axios
         .post("http://localhost:8000/api/search", { search: inputValue })
@@ -95,6 +96,7 @@ function App() {
       <Search>
         <form onSubmit={search}>
           <SearchBar
+            placeholder="Search for a keyword, frontend etc..."
             onChange={(e) => setInputValue(e.target.value)}
             value={inputValue}
           />

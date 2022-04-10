@@ -7,37 +7,14 @@ import (
 	"fmt"
 	"log"
 	"net/http"
+	"time"
 
-	_ "github.com/go-sql-driver/mysql"
-
+	"github.com/go-sql-driver/mysql"
 	"github.com/gorilla/mux"
 )
 
-type Job struct {
-	JobId               string   `json:"jobId"`
-	Title               string   `json:"title"`
-	CompanyName         string   `json:"companyName"`
-	Region              string   `json:"region"`
-	Municipality        string   `json:"municipality"`
-	Description         string   `json:"description"`
-	ApplyLink           string   `json:"applyLink"`
-	Email               string   `json:"email"`
-	PublishedDate       string   `json:"publishedDate"`
-	LastApplicationDate string   `json:"lastApplicationDate"`
-	Positions           int      `json:"positions"`
-	Keywords            []string `json:"keywords"`
-}
-
-type JobPreview struct {
-	JobId         string `json:"jobId"`
-	Title         string `json:"title"`
-	CompanyName   string `json:"companyName"`
-	Municipality  string `json:"municipality"`
-	PublishedDate string `json:"publishedDate"`
-	Keywords      string `json:"keywords"`
-}
-
 func getJobs(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Access-Control-Allow-Origin", "http://localhost:3000")
 	w.Header().Set("Content-Type", "application/json")
 	w.Header().Set("Connection", "keep-alive")
 
@@ -142,7 +119,13 @@ var db *sql.DB
 var err error
 
 func main() {
-	db, err = sql.Open("mysql", "root:Swoleness[{}]1995@tcp(127.0.0.1:3306)/codeblock_dev")
+	tlsConf := createTLSConf()
+	err := mysql.RegisterTLSConfig("custom", &tlsConf)
+	if err != nil {
+		fmt.Println(err)
+	}
+
+	db, err = sql.Open("mysql", "chrkar:Swoleness[{}]1995@tcp(codeblock-db-dev.mysql.database.azure.com:3306)/codeblock_dev?tls=true")
 	if err != nil {
 		fmt.Println(err)
 	}
@@ -160,4 +143,6 @@ func main() {
 	r.HandleFunc("/api/jobs-filter", getJobsFiltered).Methods("POST", "OPTIONS")
 
 	log.Fatal(http.ListenAndServe(":8000", r))
+	time.AfterFunc(duration(), initFetch)
+
 }
