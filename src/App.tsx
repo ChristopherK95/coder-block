@@ -4,6 +4,8 @@ import axios from "axios";
 import Locations from "./filter-data/locations";
 import JobPreview from "./job-preview/JobPreview";
 import { JobPreviewData } from "./job-preview/types";
+import Keywords from "./filter-data/keywords";
+import Search from "./search/Search";
 
 const Container = styled.div`
   display: flex;
@@ -18,29 +20,11 @@ const Container = styled.div`
   min-height: 100%;
 `;
 
-const Search = styled.div`
-  background-color: #1e1d1dad;
-  padding: 50px 20px 20px 20px;
-  border-radius: 8px;
-  box-shadow: -6px 6px 3px 3px rgba(0, 0, 0, 0.3);
-  margin-bottom: 45px;
-`;
-
-const SearchBar = styled.input`
-  width: 600px;
-  height: 60px;
-  border-radius: 5px;
-  background-color: white;
-  border: none;
-  font-size: 20px;
-  padding: 0 10px;
-  box-sizing: border-box;
-`;
-
 function App() {
   const [jobPreviews, setJobPreviews] = useState<JobPreviewData[]>([]);
   const [inputValue, setInputValue] = useState<string>("");
   // Locations();
+  Keywords();
 
   const search = async (e: React.SyntheticEvent) => {
     e.preventDefault();
@@ -50,7 +34,10 @@ function App() {
         .then((res) => convertJson(res.data));
     } else {
       await axios
-        .post("http://localhost:8000/api/search", { search: inputValue })
+        .post("http://localhost:8000/api/search", {
+          search: inputValue,
+          location: "stockholm",
+        })
         .then((res) => convertJson(res.data));
     }
   };
@@ -93,15 +80,11 @@ function App() {
 
   return (
     <Container>
-      <Search>
-        <form onSubmit={search}>
-          <SearchBar
-            placeholder="Search for a keyword, frontend etc..."
-            onChange={(e) => setInputValue(e.target.value)}
-            value={inputValue}
-          />
-        </form>
-      </Search>
+      <Search
+        inputValue={inputValue}
+        setInputValue={setInputValue}
+        search={search}
+      />
       <div style={{ display: "flex", flexDirection: "column", width: "540px" }}>
         {jobPreviews.map((j: JobPreviewData) => (
           <JobPreview jobPreview={j} />

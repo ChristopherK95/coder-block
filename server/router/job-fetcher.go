@@ -26,7 +26,6 @@ func getAd(id string) (jobData Job) {
 		"Python",
 		"Go",
 		"Java",
-		"Angular",
 		"Vue",
 		"Kotlin",
 		"Android",
@@ -57,6 +56,7 @@ func getAd(id string) (jobData Job) {
 		"NodeJs",
 		"Haskell",
 		"Rust",
+		"Cobol",
 	}
 	url := ("https://platsbanken-api.arbetsformedlingen.se/jobs/v1/job/" + id)
 

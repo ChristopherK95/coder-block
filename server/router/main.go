@@ -90,12 +90,14 @@ func search(w http.ResponseWriter, r *http.Request) {
 	}
 
 	type Search struct {
-		Search string `json:"search"`
+		Search   string `json:"search"`
+		Location string `json:"location"`
 	}
 
 	var title Search
 	var jobs []JobPreview
 	json.NewDecoder(r.Body).Decode(&title)
+	fmt.Println(title)
 
 	result, _ := db.Query("SELECT JobId, Title, CompanyName, Municipality, PublishedDate, Keywords FROM job WHERE INSTR(Title, ?) > 0  LIMIT 100;", title.Search)
 	if err != nil {
