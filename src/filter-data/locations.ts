@@ -1,22 +1,18 @@
 import locations from "./locations.json";
 
-interface RootObject {
-  locations: Location[];
-}
-
-interface Location {
+export interface Location {
   name: string;
   items: Item[];
 }
 
-interface Item {
+export interface Item {
   name: string;
 }
 
-const Locations = () => {
-  const locationArr: RootObject = locations;
+const Locations = ():Location[] => {
+  const locationArr: Location[] = locations.locations;
 
-  locationArr.locations.map((l) => console.log(l));
+  return locationArr;
 };
 
 export default Locations;
