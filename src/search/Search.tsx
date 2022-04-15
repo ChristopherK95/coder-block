@@ -1,13 +1,13 @@
-import { useEffect, useRef, useState } from "react";
-import Dropdown from "../Dropdown/Dropdown";
-import { Button } from "./Button";
+import { useEffect, useRef, useState } from 'react';
+import Dropdown from '../Dropdown/Dropdown';
+import { Button } from './Button';
 import {
   SearchContainer,
   Filter,
   SearchBar,
   Container,
   Splitter,
-} from "./Styles";
+} from './Styles';
 
 const Search = (props: {
   inputValue: string;
@@ -19,9 +19,9 @@ const Search = (props: {
   const [locationsDropdown, setLocationsDropdown] = useState<boolean>(false);
   const [dropdownToggle, setDropdownToggle] = useState<boolean>(false);
   const [visible, setVisible] = useState<boolean>(false);
-  const [dropdownVersion, setDropdownVersion] = useState<string>("");
+  const [dropdownVersion, setDropdownVersion] = useState<string>('');
 
-  const toggleDropdown = (version: "Keywords" | "Locations") => {
+  const toggleDropdown = (version: 'Keywords' | 'Locations') => {
     if (version === dropdownVersion) {
       setDropdownToggle(!dropdownToggle);
     } else {
@@ -53,13 +53,13 @@ const Search = (props: {
       </SearchContainer>
       <Filter visible={visible}>
         <Button
-          label={"Keywords"}
+          label={'Keywords'}
           onToggle={toggleDropdown}
           dropdownToggle={dropdownToggle}
         />
         <Splitter />
         <Button
-          label={"Locations"}
+          label={'Locations'}
           onToggle={toggleDropdown}
           dropdownToggle={dropdownToggle}
         />

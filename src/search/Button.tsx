@@ -1,9 +1,9 @@
-import styled from "styled-components";
-import { FilterButton } from "./Styles";
+import styled from 'styled-components';
+import { FilterButton } from './Styles';
 
 export const Button = (props: {
-  label: "Keywords" | "Locations";
-  onToggle: (ver: "Keywords" | "Locations") => void;
+  label: 'Keywords' | 'Locations';
+  onToggle: (ver: 'Keywords' | 'Locations') => void;
   dropdownToggle: boolean;
 }) => {
   const handleClick = (e: React.MouseEvent) => {

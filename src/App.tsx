@@ -1,11 +1,11 @@
-import styled from "styled-components";
-import { useState } from "react";
-import axios from "axios";
-import Locations from "./filter-data/locations";
-import JobPreview from "./job-preview/JobPreview";
-import { JobPreviewData } from "./job-preview/types";
-import Keywords from "./filter-data/keywords";
-import Search from "./search/Search";
+import styled from 'styled-components';
+import { useState } from 'react';
+import axios from 'axios';
+import Locations from './filter-data/locations';
+import JobPreview from './job-preview/JobPreview';
+import { JobPreviewData } from './job-preview/types';
+import Keywords from './filter-data/keywords';
+import Search from './search/Search';
 
 const Container = styled.div`
   display: flex;
@@ -22,21 +22,21 @@ const Container = styled.div`
 
 function App() {
   const [jobPreviews, setJobPreviews] = useState<JobPreviewData[]>([]);
-  const [inputValue, setInputValue] = useState<string>("");
+  const [inputValue, setInputValue] = useState<string>('');
   // Locations();
   Keywords();
-
+  console.log('dawdawda');
   const search = async (e: React.SyntheticEvent) => {
     e.preventDefault();
-    if (inputValue === "") {
+    if (inputValue === '') {
       await axios
-        .get("http://localhost:8000/api/jobs")
+        .get('http://localhost:8000/api/jobs')
         .then((res) => convertJson(res.data));
     } else {
       await axios
-        .post("http://localhost:8000/api/search", {
+        .post('http://localhost:8000/api/search', {
           search: inputValue,
-          location: "stockholm",
+          location: 'stockholm',
         })
         .then((res) => convertJson(res.data));
     }
@@ -62,16 +62,18 @@ function App() {
   const collectKeywords = (string: string): string[] => {
     const keywords: string[] = [];
     let collectChar: boolean = false;
-    let keyword: string = "";
+    let keyword: string = '';
     for (let i = 0; i < string.length; i++) {
+      // eslint-disable-next-line quotes
       if (collectChar && string.charAt(i) !== "'") {
         keyword += string.charAt(i);
       }
+      // eslint-disable-next-line quotes
       if (string.charAt(i) === "'") {
         collectChar = !collectChar;
         if (keyword.length > 0) {
           keywords.push(keyword);
-          keyword = "";
+          keyword = '';
         }
       }
     }
@@ -85,9 +87,9 @@ function App() {
         setInputValue={setInputValue}
         search={search}
       />
-      <div style={{ display: "flex", flexDirection: "column", width: "540px" }}>
-        {jobPreviews.map((j: JobPreviewData) => (
-          <JobPreview jobPreview={j} />
+      <div style={{ display: 'flex', flexDirection: 'column', width: '540px' }}>
+        {jobPreviews.map((j: JobPreviewData, index) => (
+          <JobPreview key={index} jobPreview={j} />
         ))}
       </div>
     </Container>

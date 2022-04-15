@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export const Container = styled.div`
   display: flex;
@@ -36,14 +36,14 @@ export const Filter = styled.div<{ visible: boolean }>`
   margin-bottom: 10px;
   position: relative;
   z-index: 10;
-  border-radius: ${(p) => (p.visible ? "0" : "0 0 8px 8px")};
+  border-radius: ${(p) => (p.visible ? '0' : '0 0 8px 8px')};
   align-items: center;
 `;
 
 export const FilterButton = styled.div<{ toggled: boolean }>`
   position: relative;
   background-color: transparent;
-  border-radius: ${(p) => (p.toggled ? "0" : "0 0 8px 8px")};
+  border-radius: ${(p) => (p.toggled ? '0' : '0 0 8px 8px')};
   width: fit-content;
   color: white;
   font-weight: bold;
