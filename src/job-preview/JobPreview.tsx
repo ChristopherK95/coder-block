@@ -5,8 +5,8 @@ import {
   KeywordsContainer,
   Municipality,
   Title,
-} from "./styles";
-import { JobPreviewData } from "./types";
+} from './styles';
+import { JobPreviewData } from './types';
 
 interface Props {
   jobPreview: JobPreviewData;
@@ -21,8 +21,8 @@ const JobPreview = (props: Props) => {
       <Company>{companyName}</Company>
       <Municipality>{municipality}</Municipality>
       <KeywordsContainer>
-        {keywords.map((k) => (
-          <Keyword>{k}</Keyword>
+        {keywords.map((k, index) => (
+          <Keyword key={index}>{k}</Keyword>
         ))}
       </KeywordsContainer>
     </Container>

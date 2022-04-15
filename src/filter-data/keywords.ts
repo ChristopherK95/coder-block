@@ -1,4 +1,4 @@
-import keywords from "./keywords.json";
+import keywords from './keywords.json';
 
 interface RootObject {
   keywords: string[];
@@ -7,7 +7,7 @@ interface RootObject {
 const Keywords = () => {
   const keywordsArr: string[] = keywords.keywords;
 
-  console.log(keywordsArr)
+  console.log(keywordsArr);
 
   return keywordsArr;
 };

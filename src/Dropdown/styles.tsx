@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export const DropdownContainer = styled.div`
   display: flex;
@@ -33,12 +33,12 @@ export const DropdownContainer = styled.div`
 export const StyledKeyword = styled.div<{ toggled: boolean }>`
   margin: 0;
   padding: 5px 80px 5px 15px;
-  color: ${(p) => (p.toggled ? "#ff405b" : "")};
-  background: ${(p) => (p.toggled ? "#FFC329" : "")};
+  color: ${(p) => (p.toggled ? '#ff405b' : '')};
+  background: ${(p) => (p.toggled ? '#FFC329' : '')};
   user-select: none;
   cursor: pointer;
   :hover {
-    background-color: ${(p) => (p.toggled ? "" : "#5e5e5e")};
+    background-color: ${(p) => (p.toggled ? '' : '#5e5e5e')};
   }
   :active {
     background-color: #303030;
@@ -49,12 +49,12 @@ export const StyledKeyword = styled.div<{ toggled: boolean }>`
 export const StyledLocation = styled.div<{ expanded: boolean }>`
   margin: 0;
   padding: 5px 80px 5px 15px;
-  color: ${(p) => (p.expanded ? "#ff405b" : "")};
-  background: ${(p) => (p.expanded ? "#FFC329" : "")};
+  color: ${(p) => (p.expanded ? '#ff405b' : '')};
+  background: ${(p) => (p.expanded ? '#FFC329' : '')};
   user-select: none;
   cursor: pointer;
   :hover {
-    background-color: ${(p) => (p.expanded ? "" : "#5e5e5e")};
+    background-color: ${(p) => (p.expanded ? '' : '#5e5e5e')};
   }
   :active {
     background-color: #303030;

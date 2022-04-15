@@ -1,13 +1,13 @@
-import { useEffect, useState } from "react";
-import styled from "styled-components";
-import Locations, { Location } from "../filter-data/locations";
-import Keywords from "../filter-data/keywords";
+import { useEffect, useState } from 'react';
+import styled from 'styled-components';
+import Locations, { Location } from '../filter-data/locations';
+import Keywords from '../filter-data/keywords';
 import {
   DropdownContainer,
   StyledKeyword,
   StyledLocation,
   ExpandedSection,
-} from "./styles";
+} from './styles';
 
 interface LocationBool {
   name: string;
@@ -54,7 +54,7 @@ const Dropdown = (props: { dropdownVersion: string }) => {
   const toggleKeyword = (keyword: Keyword, e: React.MouseEvent) => {
     e.stopPropagation();
     if (keywords) {
-      let arr: Keyword[] = [...keywords];
+      const arr: Keyword[] = [...keywords];
       arr[arr.findIndex((item) => item.label === keyword.label)].toggled =
         !keyword.toggled;
       setKeywords(arr);
@@ -75,7 +75,7 @@ const Dropdown = (props: { dropdownVersion: string }) => {
     }
   };
 
-  if (props.dropdownVersion === "Keywords") {
+  if (props.dropdownVersion === 'Keywords') {
     return (
       <DropdownContainer>
         {keywords?.map((k, index) => (
