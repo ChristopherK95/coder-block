@@ -3,11 +3,12 @@ import styled from 'styled-components';
 export const Container = styled.div`
   display: flex;
   flex-direction: column;
+  margin-top: 300px;
 `;
 
 export const SearchContainer = styled.div`
   position: relative;
-  background-color: #1e1d1dad;
+  background-color: #1c1b1f;
   padding: 20px 20px 20px 20px;
   border-radius: 8px 8px 8px 0px;
   box-shadow: -6px 6px 3px 3px rgba(0, 0, 0, 0.3);
@@ -27,7 +28,8 @@ export const SearchBar = styled.input`
 `;
 
 export const Filter = styled.div<{ visible: boolean }>`
-  background-color: #1e1d1dad;
+  box-shadow: -8px 10px 3px 1px rgba(0, 0, 0, 0.3);
+  background-color: #1c1b1f;
   width: fit-content;
   display: flex;
   flex-direction: row;

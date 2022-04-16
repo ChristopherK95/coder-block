@@ -1,11 +1,10 @@
 import styled from 'styled-components';
 import { useState } from 'react';
 import axios from 'axios';
-import Locations from './filter-data/locations';
 import JobPreview from './job-preview/JobPreview';
 import { JobPreviewData } from './job-preview/types';
-import Keywords from './filter-data/keywords';
 import Search from './search/Search';
+import TopBar from './top-bar/TopBar';
 
 const Container = styled.div`
   display: flex;
@@ -16,16 +15,13 @@ const Container = styled.div`
   width: 100%;
   flex-direction: column;
   overflow: hidden;
-  padding-top: 10%;
   min-height: 100%;
 `;
 
 function App() {
   const [jobPreviews, setJobPreviews] = useState<JobPreviewData[]>([]);
   const [inputValue, setInputValue] = useState<string>('');
-  // Locations();
-  Keywords();
-  console.log('dawdawda');
+
   const search = async (e: React.SyntheticEvent) => {
     e.preventDefault();
     if (inputValue === '') {
@@ -82,6 +78,7 @@ function App() {
 
   return (
     <Container>
+      <TopBar />
       <Search
         inputValue={inputValue}
         setInputValue={setInputValue}
