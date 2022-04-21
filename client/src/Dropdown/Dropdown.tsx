@@ -1,8 +1,6 @@
-import { useEffect, useRef, useState } from 'react';
-import styled from 'styled-components';
-import Locations, { Location } from '../filter-data/locations';
+import { useEffect, useState } from 'react';
+import Locations from '../filter-data/locations';
 import Keywords from '../filter-data/keywords';
-import { motion } from 'framer-motion';
 import { ReactComponent as ArrowSvg } from '../svg/arrow.svg';
 import {
   DropdownContainer,
@@ -65,7 +63,7 @@ const Dropdown = (props: {
   const toggleKeyword = (keyword: Keyword, e: React.MouseEvent) => {
     e.stopPropagation();
     if (keywords) {
-      let arr: Keyword[] = [...keywords];
+      const arr: Keyword[] = [...keywords];
       arr[arr.findIndex((item) => item.label === keyword.label)].toggled =
         !keyword.toggled;
       setKeywords(arr);
