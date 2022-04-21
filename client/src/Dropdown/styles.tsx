@@ -10,7 +10,6 @@ export const DropdownContainer = styled.div`
   background-color: #1e1d1dad;
   color: white;
   border-radius: 0px 0px 8px 8px;
-  /* padding: 10px; */
   position: absolute;
   top: 100%;
   left: 0;
@@ -94,11 +93,6 @@ export const Arrow = styled(motion.div)<{ expanded: boolean }>`
   align-items: center;
   justify-content: center;
   fill: white;
-  /* border: 1px solid white;
-  border-radius: 2px 2px 2px 0;
-  border-width: 3px 3px 0 0; */
-  /* transition: 0.15s ease-in; */
-  /* transform: ${(p) => (p.expanded ? 'rotate(135deg)' : 'rotate(45deg)')}; */
 `;
 
 export const NameContainer = styled.div`
