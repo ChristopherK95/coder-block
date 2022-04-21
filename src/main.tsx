@@ -8,7 +8,6 @@ const GlobalStyle = createGlobalStyle`
     margin: 0;
 
     & > #root {
-      overflow: auto;
       height: 100vh;
     } 
   }
