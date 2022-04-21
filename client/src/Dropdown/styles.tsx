@@ -1,5 +1,5 @@
-import { motion } from "framer-motion";
-import styled from "styled-components";
+import { motion } from 'framer-motion';
+import styled from 'styled-components';
 
 export const DropdownContainer = styled.div`
   display: flex;
@@ -18,6 +18,7 @@ export const DropdownContainer = styled.div`
   scrollbar-width: thin;
   overflow-y: auto;
   outline: none;
+
   ::-webkit-scrollbar {
     width: 8px;
     border-radius: 5px;
@@ -38,7 +39,7 @@ export const StyledKeyword = styled.div<{ toggled: boolean }>`
   user-select: none;
   cursor: pointer;
   :hover {
-    background-color: ${(p) => (p.toggled ? "" : "#5e5e5e")};
+    background-color: ${(p) => (p.toggled ? '' : '#5e5e5e')};
   }
   :active {
     background-color: #303030;
@@ -56,7 +57,7 @@ export const StyledLocation = styled.div<{ expanded: boolean }>`
   user-select: none;
   cursor: pointer;
   :hover {
-    background-color: ${(p) => (p.expanded ? "" : "#5e5e5e")};
+    background-color: ${(p) => (p.expanded ? '' : '#5e5e5e')};
   }
   :active {
     background-color: #303030;
@@ -67,11 +68,11 @@ export const StyledLocation = styled.div<{ expanded: boolean }>`
 export const ExpandedSection = styled.div<{ toggledLocation: boolean }>`
   padding: 5px 0 5px 25px;
   background: #1e1d1dad;
-  filter: ${(p) => (p.toggledLocation ? "brightness(3)" : "brightness(1)")};
+  filter: ${(p) => (p.toggledLocation ? 'brightness(3)' : 'brightness(1)')};
   user-select: none;
   cursor: pointer;
   :hover {
-    background-color: ${(p) => (p.toggledLocation ? "" : "#5e5e5e")};
+    background-color: ${(p) => (p.toggledLocation ? '' : '#5e5e5e')};
   }
   :active {
     background-color: #303030;
@@ -97,7 +98,7 @@ export const Arrow = styled(motion.div)<{ expanded: boolean }>`
   border-radius: 2px 2px 2px 0;
   border-width: 3px 3px 0 0; */
   /* transition: 0.15s ease-in; */
-  /* transform: ${(p) => (p.expanded ? "rotate(135deg)" : "rotate(45deg)")}; */
+  /* transform: ${(p) => (p.expanded ? 'rotate(135deg)' : 'rotate(45deg)')}; */
 `;
 
 export const NameContainer = styled.div`

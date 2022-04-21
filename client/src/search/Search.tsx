@@ -7,7 +7,7 @@ import {
   SearchBar,
   Container,
   Divider,
-} from "./Styles";
+} from './Styles';
 
 const Search = (props: {
   inputValue: string;
