@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Dropdown from '../Dropdown/Dropdown';
 import { Button } from './Button';
 import {
@@ -24,11 +24,14 @@ const Search = (props: {
     setLocationValue,
   } = props;
   const [dropdownToggle, setDropdownToggle] = useState<boolean>(false);
-  const [dropdownVersion, setDropdownVersion] = useState<string>('');
+  const [dropdownVersion, setDropdownVersion] = useState<
+    'Keywords' | 'Locations' | ''
+  >('');
 
   const toggleDropdown = (version: 'Keywords' | 'Locations') => {
     if (version === dropdownVersion) {
       setDropdownToggle(!dropdownToggle);
+      setDropdownVersion('');
     } else {
       if (dropdownToggle) {
         setDropdownVersion(version);
@@ -38,6 +41,10 @@ const Search = (props: {
       }
     }
   };
+
+  useEffect(() => {
+    console.log(dropdownVersion === 'Keywords');
+  }, [dropdownVersion]);
 
   return (
     <Container>
@@ -54,13 +61,17 @@ const Search = (props: {
         <Button
           label={'Keywords'}
           onToggle={toggleDropdown}
-          dropdownToggle={dropdownToggle}
+          dropdownToggled={dropdownToggle}
+          toggled={dropdownVersion === 'Keywords' ? true : false}
+          dropdownVersion={dropdownVersion}
         />
-        <Divider />
+        <Divider dropdownToggled={dropdownToggle} />
         <Button
           label={'Locations'}
           onToggle={toggleDropdown}
-          dropdownToggle={dropdownToggle}
+          dropdownToggled={dropdownToggle}
+          toggled={dropdownVersion === 'Locations' ? true : false}
+          dropdownVersion={dropdownVersion}
         />
         {dropdownToggle && (
           <Dropdown
