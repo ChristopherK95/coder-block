@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import Dropdown from '../Dropdown/Dropdown';
 import { Button } from './Button';
 import {
@@ -41,10 +41,6 @@ const Search = (props: {
       }
     }
   };
-
-  useEffect(() => {
-    console.log(dropdownVersion === 'Keywords');
-  }, [dropdownVersion]);
 
   return (
     <Container>
