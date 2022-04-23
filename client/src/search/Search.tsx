@@ -13,14 +13,18 @@ const Search = (props: {
   inputValue: string;
   setInputValue: React.Dispatch<React.SetStateAction<string>>;
   search: (e: React.SyntheticEvent) => Promise<void>;
-  setKeywordValue: React.Dispatch<React.SetStateAction<string[]>>;
-  setLocationValue: React.Dispatch<React.SetStateAction<string[]>>;
+  keywordValue: string[];
+  setKeywordValue: (keyword: string, e: React.MouseEvent) => void;
+  locationValue: string[];
+  setLocationValue: (location: string, e: React.MouseEvent) => void;
 }) => {
   const {
     inputValue,
     setInputValue,
     search,
+    keywordValue,
     setKeywordValue,
+    locationValue,
     setLocationValue,
   } = props;
   const [dropdownToggle, setDropdownToggle] = useState<boolean>(false);
@@ -72,7 +76,9 @@ const Search = (props: {
         {dropdownToggle && (
           <Dropdown
             dropdownVersion={dropdownVersion}
+            keywordValue={keywordValue}
             setKeywordValue={setKeywordValue}
+            locationValue={locationValue}
             setLocationValue={setLocationValue}
           />
         )}

@@ -31,18 +31,21 @@ interface Keyword {
 
 const Dropdown = (props: {
   dropdownVersion: string;
-  setKeywordValue: React.Dispatch<React.SetStateAction<string[]>>;
-  setLocationValue: React.Dispatch<React.SetStateAction<string[]>>;
+  keywordValue: string[];
+  setKeywordValue: (keyword: string, e: React.MouseEvent) => void;
+  locationValue: string[];
+  setLocationValue: (location: string, e: React.MouseEvent) => void;
 }) => {
-  const { setKeywordValue, setLocationValue } = props;
-  const [keywords, setKeywords] = useState<Keyword[]>();
+  const { keywordValue, setKeywordValue, locationValue, setLocationValue } =
+    props;
+  const [keywords, setKeywords] = useState<Keyword[]>([]);
   const [locations, setLocations] = useState<LocationBool[]>([]);
 
   useEffect(() => {
     setKeywords(
       Keywords().map((k) => ({
         label: k,
-        toggled: false,
+        toggled: keywordValue.includes(k) ? true : false,
       }))
     );
   }, []);
@@ -54,21 +57,37 @@ const Dropdown = (props: {
         expanded: false,
         items: l.items.map((i) => ({
           name: i.name,
-          toggled: false,
+          toggled: locationValue.includes(i.name) ? true : false,
         })),
       }))
     );
   }, []);
 
-  const toggleKeyword = (keyword: Keyword, e: React.MouseEvent) => {
-    e.stopPropagation();
-    if (keywords) {
-      const arr: Keyword[] = [...keywords];
-      arr[arr.findIndex((item) => item.label === keyword.label)].toggled =
-        !keyword.toggled;
-      setKeywords(arr);
-    }
-  };
+  useEffect(() => {
+    if (keywords.length === 0) return;
+
+    setKeywords(
+      keywords.map((k) => ({
+        label: k.label,
+        toggled: keywordValue.includes(k.label) ? true : false,
+      }))
+    );
+  }, [keywordValue]);
+
+  useEffect(() => {
+    if (locations.length === 0) return;
+
+    setLocations(
+      locations.map((l) => ({
+        name: l.name,
+        expanded: l.expanded,
+        items: l.items.map((i) => ({
+          name: i.name,
+          toggled: locationValue.includes(i.name) ? true : false,
+        })),
+      }))
+    );
+  }, [locationValue]);
 
   const expandLocation = (location: LocationBool, e: React.MouseEvent) => {
     e.stopPropagation();
@@ -83,42 +102,6 @@ const Dropdown = (props: {
     }
   };
 
-  const toggleLocation = (locationItem: ItemBool, e: React.MouseEvent) => {
-    e.stopPropagation();
-    const arr: LocationBool[] = [...locations];
-    const expandedIndex = arr.findIndex((item) => item.expanded === true);
-    arr[expandedIndex].items[
-      arr[expandedIndex].items.findIndex(
-        (item) => item.name === locationItem.name
-      )
-    ].toggled = !locationItem.toggled;
-    setLocations(arr);
-  };
-
-  useEffect(() => {
-    if (!locations) return;
-    const arr: string[] = [];
-    for (let i = 0; i < locations.length; i++) {
-      for (let j = 0; j < locations[i].items.length; j++) {
-        if (locations[i].items[j].toggled) {
-          arr.push(locations[i].items[j].name);
-        }
-      }
-    }
-    setLocationValue(arr);
-  }, [locations]);
-
-  useEffect(() => {
-    if (!keywords) return;
-    const arr: string[] = [];
-    for (let i = 0; i < keywords.length; i++) {
-      if (keywords[i].toggled) {
-        arr.push(keywords[i].label);
-      }
-    }
-    setKeywordValue(arr);
-  }, [keywords]);
-
   if (props.dropdownVersion === 'Keywords') {
     return (
       <DropdownContainer>
@@ -126,7 +109,7 @@ const Dropdown = (props: {
           <StyledKeyword
             key={index}
             toggled={k.toggled}
-            onClick={(e) => toggleKeyword(k, e)}
+            onClick={(e) => setKeywordValue(k.label, e)}
           >
             {k.toggled && <Circle />}
             {k.label}
@@ -167,7 +150,7 @@ const Dropdown = (props: {
               <ExpandedSection
                 key={lindex}
                 toggledLocation={i.toggled}
-                onClick={(e) => toggleLocation(i, e)}
+                onClick={(e) => setLocationValue(i.name, e)}
               >
                 {i.name}
               </ExpandedSection>
