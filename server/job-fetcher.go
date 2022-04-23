@@ -11,7 +11,7 @@ import (
 	// _ "github.com/go-sql-driver/mysql"
 )
 
-func getAd(id string) (jobData Job) {
+func getAd(id string) (jobData ScrapedJob) {
 	keywordList := []string{
 		"React",
 		"JavaScript",
@@ -93,11 +93,13 @@ func getAd(id string) (jobData Job) {
 		fmt.Println(err)
 	}
 
-	var job Job
+	var job ScrapedJob
 
 	job.JobId = iot.Id
 
 	job.Title = iot.Title
+
+	job.Occupation = iot.Occupation
 
 	job.CompanyName = iot.Company.Name
 
@@ -232,7 +234,7 @@ func getAdsOther(index string, region string) (ads []Ad) {
 	return iot.Ads
 }
 
-func sendToDB(job Job) {
+func sendToDB(job ScrapedJob) {
 	// url := "http://localhost:5000/"
 
 	// data, err := json.Marshal((job))
@@ -353,7 +355,7 @@ func initFetch() {
 		}
 	}
 
-	var jobs []Job
+	var jobs []ScrapedJob
 	for i := 0; i < len(links); i++ {
 		job := getAd(links[i])
 		jobs = append(jobs, job)

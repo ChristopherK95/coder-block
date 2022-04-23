@@ -14,3 +14,5 @@ func queries() {
 	fmt.Println(municipalitySearch)
 
 }
+
+var getPageSQL = `SELECT * FROM job WHERE JobId = ?`

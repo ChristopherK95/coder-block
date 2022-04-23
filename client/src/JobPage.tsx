@@ -4,18 +4,19 @@ import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
 
 interface Job {
-  JobId: number;
-  Title: string;
-  CompanyName: string;
-  Region: string;
-  Municipality: string;
-  Description: string;
-  ApplyLink: string;
-  Email: string;
-  PublishedDate: string;
-  LastApplicationDate: string;
-  Positions: number;
-  Keywords: string[];
+  jobId: number;
+  title: string;
+  occupation: string;
+  companyName: string;
+  region: string;
+  municipality: string;
+  description: string;
+  applyLink: string;
+  email: string;
+  publishedDate: string;
+  lastApplicationDate: string;
+  positions: number;
+  keywords: string[];
 }
 
 const Container = styled.div`
@@ -39,14 +40,38 @@ const JobContainer = styled.div`
   box-shadow: -6px 6px 3px 3px rgba(0, 0, 0, 0.3);
 `;
 
+const JobTitle = styled.h1`
+  font-size: 32px;
+  font-weight: bold;
+  color: white;
+  margin: 15px 0 10px 20px;
+`;
+
+const SubTitle = styled.p`
+  font-size: 22px;
+  font-weight: bold;
+  color: #dfdfdf;
+  margin: 0 0 0 20px;
+`;
+
+const Desc = styled.p`
+  color: white;
+  font-size: 16px;
+  margin: 40px 150px;
+  white-space: break-spaces;
+`;
+
 const JobPage = () => {
   const { id } = useParams();
   const [job, setJob] = useState<Job>();
 
   const fetchData = async () => {
-    const data = await axios.post('/api/get-job', id);
-    if (data) {
-      setJob(data.data);
+    const res = await axios.post('http://localhost:8000/api/get-job', {
+      id: id,
+    });
+
+    if (res) {
+      setJob(res.data);
     }
   };
 
@@ -57,8 +82,10 @@ const JobPage = () => {
   return (
     <Container>
       <JobContainer>
-        {id}
-        {job?.Title}
+        <JobTitle>{job?.title}</JobTitle>
+        <SubTitle>{job?.occupation}</SubTitle>
+        <SubTitle>{job?.companyName}</SubTitle>
+        <Desc>{job?.description}</Desc>
       </JobContainer>
     </Container>
   );

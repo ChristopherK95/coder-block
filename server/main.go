@@ -118,7 +118,47 @@ func search(w http.ResponseWriter, r *http.Request) {
 }
 
 func getJob(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Access-Control-Allow-Origin", "http://localhost:3000")
+	w.Header().Set("Access-Control-Allow-Headers", "content-type")
 
+	if r.Method == "OPTIONS" {
+		w.WriteHeader(200)
+		return
+	}
+
+	type Id struct {
+		Id string `json:"id"`
+	}
+
+	var id Id
+	json.NewDecoder(r.Body).Decode(&id)
+
+	result, err := db.Query(getPageSQL, id.Id)
+	if err != nil {
+		fmt.Println(err)
+	}
+
+	var job Job
+	for result.Next() {
+		result.Scan(
+			&job.JobId,
+			&job.Title,
+			&job.Occupation,
+			&job.CompanyName,
+			&job.Region,
+			&job.Municipality,
+			&job.Description,
+			&job.ApplyLink,
+			&job.Email,
+			&job.PublishedDate,
+			&job.LastApplicationDate,
+			&job.Positions,
+			&job.Keywords,
+		)
+	}
+	fmt.Println(job)
+	defer result.Close()
+	json.NewEncoder(w).Encode(job)
 }
 
 var db *sql.DB
@@ -150,6 +190,7 @@ func main() {
 	r.HandleFunc("/api/get-job", getJob).Methods("POST", "OPTIONS")
 
 	log.Fatal(http.ListenAndServe(":8000", r))
+	initFetch()
 	time.AfterFunc(duration(), initFetch)
 
 }
