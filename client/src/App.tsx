@@ -24,6 +24,24 @@ function App() {
   const [keywordValue, setKeywordValue] = useState<string[]>([]);
   const [locationValue, setLocationValue] = useState<string[]>([]);
 
+  const addKeyword = (keyword: string, e: React.MouseEvent) => {
+    e.stopPropagation();
+    if (keywordValue.includes(keyword)) {
+      setKeywordValue(keywordValue.filter((k) => k !== keyword));
+    } else {
+      setKeywordValue([...keywordValue, keyword]);
+    }
+  };
+
+  const addLocation = (location: string, e: React.MouseEvent) => {
+    e.stopPropagation();
+    if (locationValue.includes(location)) {
+      setLocationValue(locationValue.filter((k) => k !== location));
+    } else {
+      setLocationValue([...locationValue, location]);
+    }
+  };
+
   const search = async (e: React.SyntheticEvent) => {
     e.preventDefault();
     if (inputValue === '') {
@@ -35,7 +53,7 @@ function App() {
         .post('http://localhost:8000/api/search', {
           search: inputValue,
           location: locationValue,
-          keyword: keywordValue,
+          keywords: keywordValue,
         })
         .then((res) => convertJson(res.data));
     }
@@ -86,8 +104,10 @@ function App() {
         inputValue={inputValue}
         setInputValue={setInputValue}
         search={search}
-        setKeywordValue={setKeywordValue}
-        setLocationValue={setLocationValue}
+        keywordValue={keywordValue}
+        setKeywordValue={addKeyword}
+        locationValue={locationValue}
+        setLocationValue={addLocation}
       />
       <div style={{ display: 'flex', flexDirection: 'column', width: '540px' }}>
         {jobPreviews.map((j: JobPreviewData, index) => (
