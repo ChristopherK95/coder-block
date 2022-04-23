@@ -7,7 +7,7 @@ export const DropdownContainer = styled.div`
   height: fit-content;
   width: 100%;
   max-height: 600px;
-  background-color: #1e1d1dad;
+  background-color: #2a2a2b;
   color: white;
   border-radius: 0px 0px 8px 8px;
   position: absolute;
@@ -17,6 +17,7 @@ export const DropdownContainer = styled.div`
   scrollbar-width: thin;
   overflow-y: auto;
   outline: none;
+  box-shadow: -8px 12px 3px 1px rgba(0, 0, 0, 0.3);
 
   ::-webkit-scrollbar {
     width: 8px;
@@ -66,8 +67,8 @@ export const StyledLocation = styled.div<{ expanded: boolean }>`
 
 export const ExpandedSection = styled.div<{ toggledLocation: boolean }>`
   padding: 5px 0 5px 25px;
-  background: #1e1d1dad;
-  filter: ${(p) => (p.toggledLocation ? 'brightness(3)' : 'brightness(1)')};
+  background: #48484a;
+  filter: ${(p) => (p.toggledLocation ? 'brightness(1.7)' : 'brightness(1)')};
   user-select: none;
   cursor: pointer;
   :hover {

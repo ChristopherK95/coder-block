@@ -41,10 +41,22 @@ export const Filter = styled.div<{ visible: boolean }>`
   align-items: center;
 `;
 
-export const FilterButton = styled.div<{ toggled: boolean }>`
+export const FilterButton = styled.div<{
+  toggled: boolean;
+  dropdownToggled: boolean;
+  version: 'Keywords' | 'Locations' | '';
+}>`
   position: relative;
-  background-color: transparent;
-  border-radius: ${(p) => (p.toggled ? '0' : '0 0 8px 8px')};
+  background-color: ${(p) => (p.toggled ? '#2a2a2b' : 'transparent')};
+  border-radius: ${(p) => (p.dropdownToggled ? '0' : '0 0 8px 8px')};
+  ${(p) =>
+    p.toggled && p.version === 'Keywords'
+      ? 'border-top-right-radius: 5px;'
+      : ''}
+  ${(p) =>
+    p.toggled && p.version === 'Locations'
+      ? 'border-top-left-radius: 5px;'
+      : ''}
   width: fit-content;
   color: white;
   font-weight: bold;
@@ -54,11 +66,35 @@ export const FilterButton = styled.div<{ toggled: boolean }>`
   user-select: none;
   :hover {
   }
+  ${(p) =>
+    p.toggled &&
+    ` ::after {
+    content: '';
+    height: 10px;
+    display: block;
+    width: 8px;
+    position: absolute;
+    ${p.version === 'Keywords' ? 'right: -8px;' : 'left: -8px;'}
+    border-radius: ${
+      p.version === 'Keywords' ? '0px 0px 0px 10px;' : '0px 0px 10px 0px;'
+    }
+    ${
+      p.version === 'Keywords'
+        ? 'border-left: 5px solid #2a2a2b;'
+        : 'border-right: 5px solid #2a2a2b;'
+    }
+    border-bottom: 5px solid #2a2a2b;
+    bottom: -5px;
+  }`}// When active
+  /* 
+    background-color: #4a4a4a;
+    border-radius: 0px 5px 0 0; 
+  */
 `;
 
-export const Divider = styled.div`
+export const Divider = styled.div<{ dropdownToggled: boolean }>`
   height: 20px;
   width: 2px;
   position: relative;
-  background-color: black;
+  background-color: ${(p) => (p.dropdownToggled ? 'transparent' : '#f9f9f97d')};
 `;
