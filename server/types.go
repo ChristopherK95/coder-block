@@ -44,6 +44,7 @@ type AdPage struct {
 	Title               string        `json:"title"`
 	Description         string        `json:"description"`
 	PublishedDate       string        `json:"publishedDate"`
+	Occupation          string        `json:"occupation"`
 	Company             Company       `json:"company"`
 	Logotype            string        `json:"logotype"`
 	Conditions          string        `json:"conditions"`
@@ -68,9 +69,10 @@ type AdPage struct {
 	Contacts            []interface{} `json:"contacts"`
 }
 
-type Job struct {
+type ScrapedJob struct {
 	JobId               string   `json:"jobId"`
 	Title               string   `json:"title"`
+	Occupation          string   `json:"occupation"`
 	CompanyName         string   `json:"companyName"`
 	Region              string   `json:"region"`
 	Municipality        string   `json:"municipality"`
@@ -83,9 +85,26 @@ type Job struct {
 	Keywords            []string `json:"keywords"`
 }
 
+type Job struct {
+	JobId               string `json:"jobId"`
+	Title               string `json:"title"`
+	Occupation          string `json:"occupation"`
+	CompanyName         string `json:"companyName"`
+	Region              string `json:"region"`
+	Municipality        string `json:"municipality"`
+	Description         string `json:"description"`
+	ApplyLink           string `json:"applyLink"`
+	Email               string `json:"email"`
+	PublishedDate       string `json:"publishedDate"`
+	LastApplicationDate string `json:"lastApplicationDate"`
+	Positions           int    `json:"positions"`
+	Keywords            string `json:"keywords"`
+}
+
 type JobPreview struct {
 	JobId         string `json:"jobId"`
 	Title         string `json:"title"`
+	Occupation    string `json:"occupation"`
 	CompanyName   string `json:"companyName"`
 	Municipality  string `json:"municipality"`
 	PublishedDate string `json:"publishedDate"`
