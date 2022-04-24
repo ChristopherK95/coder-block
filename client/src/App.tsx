@@ -44,15 +44,19 @@ function App() {
 
   const search = async (e: React.SyntheticEvent) => {
     e.preventDefault();
-    if (inputValue === '') {
+    if (
+      inputValue === '' &&
+      locationValue.length === 0 &&
+      keywordValue.length === 0
+    ) {
       await axios
         .get('http://localhost:8000/api/jobs')
         .then((res) => convertJson(res.data));
     } else {
       await axios
         .post('http://localhost:8000/api/search', {
-          search: inputValue,
-          location: locationValue,
+          input: inputValue,
+          locations: locationValue,
           keywords: keywordValue,
         })
         .then((res) => convertJson(res.data));
@@ -69,32 +73,12 @@ function App() {
         companyName: arr[i].companyName,
         municipality: arr[i].municipality,
         publishedDate: arr[i].publishedDate,
-        keywords: collectKeywords(arr[i].keywords),
+        keywords: arr[i].keywords,
+        // keywords: collectKeywords(arr[i].keywords),
       };
       jobs.push(jobPreview);
     }
     setJobPreviews(jobs);
-  };
-
-  const collectKeywords = (string: string): string[] => {
-    const keywords: string[] = [];
-    let collectChar: boolean = false;
-    let keyword: string = '';
-    for (let i = 0; i < string.length; i++) {
-      // eslint-disable-next-line quotes
-      if (collectChar && string.charAt(i) !== "'") {
-        keyword += string.charAt(i);
-      }
-      // eslint-disable-next-line quotes
-      if (string.charAt(i) === "'") {
-        collectChar = !collectChar;
-        if (keyword.length > 0) {
-          keywords.push(keyword);
-          keyword = '';
-        }
-      }
-    }
-    return keywords;
   };
 
   return (
