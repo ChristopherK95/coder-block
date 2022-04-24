@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import Dropdown from '../Dropdown/Dropdown';
 import { Button } from './Button';
 import {
@@ -32,6 +32,8 @@ const Search = (props: {
     'Keywords' | 'Locations' | ''
   >('');
 
+  const focusRef = useRef<HTMLDivElement>(null);
+
   const toggleDropdown = (version: 'Keywords' | 'Locations') => {
     if (version === dropdownVersion) {
       setDropdownToggle(!dropdownToggle);
@@ -46,6 +48,16 @@ const Search = (props: {
     }
   };
 
+  const handleOnBlur = () => {
+    setDropdownToggle(false);
+    setDropdownVersion('');
+  };
+
+  useEffect(() => {
+    if (!focusRef.current) return;
+    focusRef.current.focus();
+  }, []);
+
   return (
     <Container>
       <SearchContainer>
@@ -57,7 +69,12 @@ const Search = (props: {
           />
         </form>
       </SearchContainer>
-      <Filter visible={dropdownToggle}>
+      <Filter
+        visible={dropdownToggle}
+        tabIndex={1}
+        onBlur={handleOnBlur}
+        ref={focusRef}
+      >
         <Button
           label={'Keywords'}
           onToggle={toggleDropdown}

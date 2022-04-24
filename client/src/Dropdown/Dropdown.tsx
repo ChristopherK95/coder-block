@@ -41,6 +41,19 @@ const Dropdown = (props: {
   const [keywords, setKeywords] = useState<Keyword[]>([]);
   const [locations, setLocations] = useState<LocationBool[]>([]);
 
+  const expandLocation = (location: LocationBool, e: React.MouseEvent) => {
+    e.stopPropagation();
+    if (locations) {
+      let arr: LocationBool[] = [...locations];
+      arr = locations.map((l) =>
+        l.name === location.name
+          ? { ...l, expanded: !location.expanded }
+          : { ...l, expanded: false }
+      );
+      setLocations(arr);
+    }
+  };
+
   useEffect(() => {
     setKeywords(
       Keywords().map((k) => ({
@@ -88,19 +101,6 @@ const Dropdown = (props: {
       }))
     );
   }, [locationValue]);
-
-  const expandLocation = (location: LocationBool, e: React.MouseEvent) => {
-    e.stopPropagation();
-    if (locations) {
-      let arr: LocationBool[] = [...locations];
-      arr = locations.map((l) =>
-        l.name === location.name
-          ? { ...l, expanded: !location.expanded }
-          : { ...l, expanded: false }
-      );
-      setLocations(arr);
-    }
-  };
 
   if (props.dropdownVersion === 'Keywords') {
     return (
