@@ -102,11 +102,16 @@ type Job struct {
 }
 
 type JobPreview struct {
-	JobId         string `json:"jobId"`
-	Title         string `json:"title"`
-	Occupation    string `json:"occupation"`
-	CompanyName   string `json:"companyName"`
-	Municipality  string `json:"municipality"`
-	PublishedDate string `json:"publishedDate"`
-	Keywords      string `json:"keywords"`
+	JobId               string   `json:"jobId"`
+	Title               string   `json:"title"`
+	Occupation          string   `json:"occupation"`
+	CompanyName         string   `json:"companyName"`
+	Municipality        string   `json:"municipality"`
+	PublishedDate       string   `json:"publishedDate"`
+	LastApplicationDate string   `json:"lastApplicationDate"`
+	Keywords            []string `json:"keywords"`
+}
+
+type KeywordLabel struct {
+	Label string `json:"label"`
 }

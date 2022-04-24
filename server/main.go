@@ -27,7 +27,7 @@ func getJobs(w http.ResponseWriter, r *http.Request) {
 
 	for result.Next() {
 		var job JobPreview
-		err := result.Scan(&job.JobId, &job.Title, &job.CompanyName, &job.Municipality, &job.PublishedDate, &job.Keywords)
+		err := result.Scan(&job.JobId, &job.Title, &job.CompanyName, &job.Municipality, &job.PublishedDate)
 		if err != nil {
 			fmt.Println(err)
 		}
@@ -65,7 +65,7 @@ func getJobsFiltered(w http.ResponseWriter, r *http.Request) {
 
 	for result.Next() {
 		var job JobPreview
-		err := result.Scan(&job.JobId, &job.Title, &job.CompanyName, &job.Municipality, &job.PublishedDate, &job.Keywords)
+		err := result.Scan(&job.JobId, &job.Title, &job.CompanyName, &job.Municipality, &job.PublishedDate)
 		if err != nil {
 			fmt.Println(err)
 		}
@@ -90,31 +90,92 @@ func search(w http.ResponseWriter, r *http.Request) {
 	}
 
 	type Search struct {
-		Search   string `json:"search"`
-		Location string `json:"location"`
+		Input     string   `json:"input"`
+		Locations []string `json:"locations"`
+		Keywords  []string `json:"keywords"`
 	}
 
-	var title Search
+	var search Search
 	var jobs []JobPreview
-	json.NewDecoder(r.Body).Decode(&title)
-	fmt.Println(title)
+	json.NewDecoder(r.Body).Decode(&search)
+	fmt.Println(search)
 
-	result, _ := db.Query("SELECT JobId, Title, CompanyName, Municipality, PublishedDate, Keywords FROM job WHERE INSTR(Title, ?) > 0  LIMIT 100;", title.Search)
-	if err != nil {
-		fmt.Println(err)
+	var query string
+	var args []interface{}
+
+	switch true {
+	case search.Input != "" && len(search.Locations) > 0 && len(search.Keywords) > 0:
+		query =
+			`SELECT 
+						JobId,
+						Title, 
+						Occupation, 
+						CompanyName, 
+						Municipality, 
+						PublishedDate, 
+						LastApplicationDate 
+					FROM 
+						job 
+					WHERE 
+						INSTR(Title, ?) 
+						AND Municipality in (`
+		for i := 0; i < len(search.Locations); i++ {
+			if i == len(search.Locations)-1 {
+				query += "?)"
+			} else {
+				query += "?,"
+			}
+		}
+		for i := 0; i < len(search.Keywords); i++ {
+			query += " AND EXISTS (SELECT JobId FROM keywords WHERE Label = ? and job.JobId = keywords.JobId) "
+		}
+		query += "LIMIT 50;"
+		args = append(args, search.Input)
+		for i := 0; i < len(search.Locations); i++ {
+			args = append(args, search.Locations[i])
+		}
+		for i := 0; i < len(search.Keywords); i++ {
+			args = append(args, search.Keywords[i])
+		}
+	case len(search.Locations) > 0 && len(search.Keywords) > 0:
+		query =
+			``
 	}
 
-	for result.Next() {
-		var job JobPreview
-		err := result.Scan(&job.JobId, &job.Title, &job.CompanyName, &job.Municipality, &job.PublishedDate, &job.Keywords)
+	if query != "" {
+		result, err := db.Query(query, args...)
 		if err != nil {
 			fmt.Println(err)
 		}
-		job.Title = string(bytes.Trim([]byte(job.Title), "\xef\xbb\xbf"))
-		jobs = append(jobs, job)
+
+		for result.Next() {
+			var job JobPreview
+			err := result.Scan(&job.JobId, &job.Title, &job.Occupation, &job.CompanyName, &job.Municipality, &job.PublishedDate, &job.LastApplicationDate)
+			if err != nil {
+				fmt.Println(err)
+			}
+
+			res, err := db.Query("SELECT Label FROM keywords WHERE JobId = ?", job.JobId)
+			if err != nil {
+				fmt.Println(err)
+			}
+
+			for res.Next() {
+				var keyword string
+				err := res.Scan(&keyword)
+				if err != nil {
+					fmt.Println(err)
+				}
+				job.Keywords = append(job.Keywords, keyword)
+			}
+
+			job.Title = string(bytes.Trim([]byte(job.Title), "\xef\xbb\xbf"))
+			jobs = append(jobs, job)
+		}
+
+		defer result.Close()
+		json.NewEncoder(w).Encode(jobs)
 	}
-	defer result.Close()
-	json.NewEncoder(w).Encode(jobs)
 }
 
 func getJob(w http.ResponseWriter, r *http.Request) {

@@ -51,8 +51,8 @@ function App() {
     } else {
       await axios
         .post('http://localhost:8000/api/search', {
-          search: inputValue,
-          location: locationValue,
+          input: inputValue,
+          locations: locationValue,
           keywords: keywordValue,
         })
         .then((res) => convertJson(res.data));
@@ -69,11 +69,13 @@ function App() {
         companyName: arr[i].companyName,
         municipality: arr[i].municipality,
         publishedDate: arr[i].publishedDate,
-        keywords: collectKeywords(arr[i].keywords),
+        keywords: arr[i].keywords,
+        // keywords: collectKeywords(arr[i].keywords),
       };
       jobs.push(jobPreview);
     }
     setJobPreviews(jobs);
+    console.log(jobPreviews);
   };
 
   const collectKeywords = (string: string): string[] => {
