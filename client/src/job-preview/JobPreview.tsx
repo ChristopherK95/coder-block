@@ -21,7 +21,7 @@ const JobPreview = (props: Props) => {
       <Company>{companyName}</Company>
       <Municipality>{municipality}</Municipality>
       <KeywordsContainer>
-        {keywords.map((k, index) => (
+        {keywords?.map((k, index) => (
           <Keyword key={index}>{k}</Keyword>
         ))}
       </KeywordsContainer>

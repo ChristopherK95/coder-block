@@ -44,7 +44,11 @@ function App() {
 
   const search = async (e: React.SyntheticEvent) => {
     e.preventDefault();
-    if (inputValue === '') {
+    if (
+      inputValue === '' &&
+      locationValue.length === 0 &&
+      keywordValue.length === 0
+    ) {
       await axios
         .get('http://localhost:8000/api/jobs')
         .then((res) => convertJson(res.data));
@@ -75,28 +79,6 @@ function App() {
       jobs.push(jobPreview);
     }
     setJobPreviews(jobs);
-    console.log(jobPreviews);
-  };
-
-  const collectKeywords = (string: string): string[] => {
-    const keywords: string[] = [];
-    let collectChar: boolean = false;
-    let keyword: string = '';
-    for (let i = 0; i < string.length; i++) {
-      // eslint-disable-next-line quotes
-      if (collectChar && string.charAt(i) !== "'") {
-        keyword += string.charAt(i);
-      }
-      // eslint-disable-next-line quotes
-      if (string.charAt(i) === "'") {
-        collectChar = !collectChar;
-        if (keyword.length > 0) {
-          keywords.push(keyword);
-          keyword = '';
-        }
-      }
-    }
-    return keywords;
   };
 
   return (
