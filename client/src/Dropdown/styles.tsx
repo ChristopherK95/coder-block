@@ -107,6 +107,6 @@ export const Circle = styled.div`
   left: 5px;
   width: 10px;
   height: 10px;
-  background-color: green;
+  background-color: rgb(46, 204, 11);
   border-radius: 100%;
 `;
