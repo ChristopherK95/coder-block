@@ -204,7 +204,6 @@ func getJob(w http.ResponseWriter, r *http.Request) {
 			&job.Keywords,
 		)
 	}
-	fmt.Println(job)
 	defer result.Close()
 	json.NewEncoder(w).Encode(job)
 }
