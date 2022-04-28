@@ -2,12 +2,12 @@ import { motion } from 'framer-motion';
 import styled from 'styled-components';
 
 export const Container = styled.div`
-  position: absolute;
-  width: 200px;
-  height: 200px;
+  position: fixed;
+  width: 50px;
+  height: 50px;
   z-index: 100;
-  align-self: center;
-  top: 125%;
+  bottom: 50px;
+  right: 50px;
 `;
 
 export const Ring = styled.div`
@@ -17,7 +17,7 @@ export const Ring = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  border: 20px solid #ffffff1f;
+  border: 5px solid #ffffff1f;
   box-sizing: border-box;
 `;
 
@@ -25,10 +25,10 @@ export const InnerRing = styled(motion.div)`
   width: 100%;
   height: 100%;
   border-radius: 100%;
-  border-left: 20px solid #48bf5a;
+  border-left: 5px solid #48bf5a;
   position: absolute;
   box-sizing: border-box;
-  border-right: 20px solid transparent;
-  border-top: 20px solid transparent;
-  border-bottom: 20px solid transparent;
+  border-right: 5px solid transparent;
+  border-top: 5px solid transparent;
+  border-bottom: 5px solid transparent;
 `;

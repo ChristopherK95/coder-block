@@ -9,11 +9,12 @@ import { JobResultData } from './types';
 interface Props {
   jobResults: JobResultData[];
   isLoading: boolean;
+  isFetching: boolean;
 }
 
 const JobResults = (props: Props) => {
   const [showJobPreview, setShowJobPreview] = useState<string>('');
-  const { jobResults, isLoading } = props;
+  const { jobResults, isLoading, isFetching } = props;
 
   const showPreview = async (id: string) => {
     if (showJobPreview !== id) {
@@ -33,6 +34,7 @@ const JobResults = (props: Props) => {
 
   return (
     <JobContainer>
+      {isFetching && <Spinner />}
       <ResultsContainer>
         {jobResults.map((j: JobResultData, index) => (
           <JobResult

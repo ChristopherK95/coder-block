@@ -19,7 +19,7 @@ function App() {
     locationValue.length === 0 &&
     keywordValue.length === 0;
 
-  const { data, isLoading, refetch } = useQuery(
+  const { data, isLoading, isFetching, refetch } = useQuery(
     'jobs',
     async () =>
       paramsSet()
@@ -29,8 +29,12 @@ function App() {
             locations: locationValue,
             keywords: keywordValue,
           }),
-    { enabled: false }
+    { enabled: false, refetchOnWindowFocus: false }
   );
+
+  useEffect(() => {
+    console.log(isLoading, isFetching);
+  }, [isLoading, isFetching]);
 
   useEffect(() => {
     if (data) {
@@ -75,7 +79,11 @@ function App() {
             locationValue={locationValue}
             setLocationValue={addLocation}
           />
-          <JobResults jobResults={jobResults} isLoading={isLoading} />
+          <JobResults
+            jobResults={jobResults}
+            isLoading={isLoading}
+            isFetching={isFetching}
+          />
         </Align>
       </Content>
     </Container>
