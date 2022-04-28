@@ -1,6 +1,7 @@
+import { motion } from 'framer-motion';
 import styled from 'styled-components';
 
-export const Card = styled.div`
+export const Card = styled(motion.div)`
   display: flex;
   flex-direction: column;
   position: sticky;
@@ -10,8 +11,7 @@ export const Card = styled.div`
   box-shadow: -6px 6px 3px 3px rgba(0, 0, 0, 0.3);
   height: 850px;
   top: 20px;
-  /* right: calc(-100% - 70px); */
-  margin-left: 140px;
+  margin-left: 30px;
   color: white;
 `;
 

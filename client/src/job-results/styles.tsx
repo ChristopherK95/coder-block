@@ -1,3 +1,4 @@
+import { motion } from 'framer-motion';
 import styled from 'styled-components';
 
 export const Container = styled.div`
@@ -10,6 +11,7 @@ export const Container = styled.div`
   margin-bottom: 20px;
   box-shadow: -6px 6px 3px 3px rgba(0, 0, 0, 0.3);
   width: 640px;
+  position: relative;
 `;
 
 export const Title = styled.h1`
@@ -39,4 +41,21 @@ export const Keyword = styled.p`
   font-weight: bold;
   font-size: 14px;
   margin: 0 10px 0 0;
+`;
+export const ArrowContainer = styled.div`
+  align-self: center;
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  cursor: pointer;
+  border-radius: 4px;
+`;
+
+export const Arrow = styled(motion.div)<{ expanded: boolean }>`
+  height: 10px;
+  width: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  fill: ${(p) => (p.expanded ? '#48bf5a' : 'white')};
 `;

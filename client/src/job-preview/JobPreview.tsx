@@ -69,7 +69,17 @@ const JobPreview = (props: { jobPreviewData: Job; onClick: () => void }) => {
   }
 
   return (
-    <Card>
+    <Card
+      initial={{ translateX: '-500px', opacity: 0 }}
+      animate={{ translateX: 0, opacity: 1 }}
+      exit={{ translateX: '-500px', opacity: 0 }}
+      transition={{
+        type: 'spring',
+        stiffness: 150,
+        duration: 0.2,
+        damping: 12,
+      }}
+    >
       <UpperContainer>
         <Title>{title}</Title>
         <Occupation>{occupation}</Occupation>

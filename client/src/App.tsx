@@ -4,8 +4,15 @@ import JobResult from './job-results/JobResults';
 import { JobResultData } from './job-results/types';
 import Search from './search/Search';
 import TopBar from './top-bar/TopBar';
-import JobPreview from './job-preview/jobPreview';
-import { Container, Content, JobContainer, Align } from './styles/Styles';
+import JobPreview from './job-preview/JobPreview';
+import {
+  Container,
+  Content,
+  JobContainer,
+  Align,
+  ResultsContainer,
+} from './styles/Styles';
+import { AnimatePresence } from 'framer-motion';
 
 interface Job {
   jobId: number;
@@ -28,7 +35,7 @@ function App() {
   const [inputValue, setInputValue] = useState<string>('');
   const [keywordValue, setKeywordValue] = useState<string[]>([]);
   const [locationValue, setLocationValue] = useState<string[]>([]);
-  const [showJobPreview, setShowJobPreview] = useState<boolean>();
+  const [showJobPreview, setShowJobPreview] = useState<string>('');
   const [jobPreviewData, setJobPreviewData] = useState<Job>();
   const cardRef = useRef<HTMLDivElement>(null);
 
@@ -90,11 +97,15 @@ function App() {
   };
 
   const showPreview = async (id: string) => {
-    const res = await axios.post('http://localhost:8000/api/get-job', {
-      id: id,
-    });
-    setJobPreviewData(res.data);
-    setShowJobPreview(true);
+    if (showJobPreview !== id) {
+      const res = await axios.post('http://localhost:8000/api/get-job', {
+        id: id,
+      });
+      setJobPreviewData(res.data);
+      setShowJobPreview(id);
+    } else {
+      setShowJobPreview('');
+    }
   };
 
   return (
@@ -112,28 +123,24 @@ function App() {
             setLocationValue={addLocation}
           />
           <JobContainer>
-            <div
-              style={{
-                display: 'flex',
-                flexDirection: 'column',
-                width: '540px',
-              }}
-            >
+            <ResultsContainer>
               {jobResults.map((j: JobResultData, index) => (
                 <JobResult
                   key={index}
                   JobResult={j}
                   showPreview={showPreview}
+                  showJobPreview={showJobPreview}
                 />
               ))}
-            </div>
-
-            {showJobPreview && jobPreviewData && (
-              <JobPreview
-                jobPreviewData={jobPreviewData}
-                onClick={() => setShowJobPreview(false)}
-              />
-            )}
+            </ResultsContainer>
+            <AnimatePresence>
+              {showJobPreview !== '' && jobPreviewData && (
+                <JobPreview
+                  jobPreviewData={jobPreviewData}
+                  onClick={() => setShowJobPreview('')}
+                />
+              )}
+            </AnimatePresence>
           </JobContainer>
         </Align>
       </Content>
