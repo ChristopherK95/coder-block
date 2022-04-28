@@ -13,7 +13,6 @@ export const Card = styled(motion.div)`
   top: 20px;
   margin-left: 30px;
   color: white;
-  transition: all;
 `;
 
 export const UpperContainer = styled.div`
