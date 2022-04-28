@@ -1,4 +1,4 @@
-export interface JobPreviewData {
+export interface JobResultData {
   jobId: string;
   title: string;
   companyName: string;

@@ -1,0 +1,11 @@
+@font-face {
+  font-family: 'Epilogue-Regular';
+  src: local('Epilogue-Regular'),
+    url(./fonts//Epilogue-Regular.ttf) format('truetype');
+}
+
+@font-face {
+  font-family: 'Epilogue-Light';
+  src: local('Epilogue-Light'),
+    url(./fonts//Epilogue-Light.ttf) format('truetype');
+}

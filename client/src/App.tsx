@@ -1,28 +1,36 @@
-import styled from 'styled-components';
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import axios from 'axios';
-import JobPreview from './job-preview/JobPreview';
-import { JobPreviewData } from './job-preview/types';
+import JobResult from './job-results/JobResults';
+import { JobResultData } from './job-results/types';
 import Search from './search/Search';
 import TopBar from './top-bar/TopBar';
+import JobPreview from './job-preview/jobPreview';
+import { Container, Content, JobContainer, Align } from './styles/Styles';
 
-const Container = styled.div`
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-  background-color: #333537;
-  background: linear-gradient(to right, #cb1d90, #bf342a, #e87a14);
-  width: 100%;
-  flex-direction: column;
-  overflow: hidden;
-  min-height: 100%;
-`;
+interface Job {
+  jobId: number;
+  title: string;
+  occupation: string;
+  companyName: string;
+  region: string;
+  municipality: string;
+  description: string;
+  applyLink: string;
+  email: string;
+  publishedDate: string;
+  lastApplicationDate: string;
+  positions: number;
+  keywords: string[];
+}
 
 function App() {
-  const [jobPreviews, setJobPreviews] = useState<JobPreviewData[]>([]);
+  const [jobResults, setJobResults] = useState<JobResultData[]>([]);
   const [inputValue, setInputValue] = useState<string>('');
   const [keywordValue, setKeywordValue] = useState<string[]>([]);
   const [locationValue, setLocationValue] = useState<string[]>([]);
+  const [showJobPreview, setShowJobPreview] = useState<boolean>();
+  const [jobPreviewData, setJobPreviewData] = useState<Job>();
+  const cardRef = useRef<HTMLDivElement>(null);
 
   const addKeyword = (keyword: string, e: React.MouseEvent) => {
     e.stopPropagation();
@@ -65,9 +73,9 @@ function App() {
 
   const convertJson = (json: JSON) => {
     const arr = JSON.parse(JSON.stringify(json));
-    const jobs: JobPreviewData[] = [];
+    const jobs: JobResultData[] = [];
     for (let i = 0; i < arr.length; i++) {
-      const jobPreview: JobPreviewData = {
+      const jobPreview: JobResultData = {
         jobId: arr[i].jobId,
         title: arr[i].title,
         companyName: arr[i].companyName,
@@ -78,26 +86,57 @@ function App() {
       };
       jobs.push(jobPreview);
     }
-    setJobPreviews(jobs);
+    setJobResults(jobs);
+  };
+
+  const showPreview = async (id: string) => {
+    const res = await axios.post('http://localhost:8000/api/get-job', {
+      id: id,
+    });
+    setJobPreviewData(res.data);
+    setShowJobPreview(true);
   };
 
   return (
     <Container>
       <TopBar />
-      <Search
-        inputValue={inputValue}
-        setInputValue={setInputValue}
-        search={search}
-        keywordValue={keywordValue}
-        setKeywordValue={addKeyword}
-        locationValue={locationValue}
-        setLocationValue={addLocation}
-      />
-      <div style={{ display: 'flex', flexDirection: 'column', width: '540px' }}>
-        {jobPreviews.map((j: JobPreviewData, index) => (
-          <JobPreview key={index} jobPreview={j} />
-        ))}
-      </div>
+      <Content ref={cardRef}>
+        <Align>
+          <Search
+            inputValue={inputValue}
+            setInputValue={setInputValue}
+            search={search}
+            keywordValue={keywordValue}
+            setKeywordValue={addKeyword}
+            locationValue={locationValue}
+            setLocationValue={addLocation}
+          />
+          <JobContainer>
+            <div
+              style={{
+                display: 'flex',
+                flexDirection: 'column',
+                width: '540px',
+              }}
+            >
+              {jobResults.map((j: JobResultData, index) => (
+                <JobResult
+                  key={index}
+                  JobResult={j}
+                  showPreview={showPreview}
+                />
+              ))}
+            </div>
+
+            {showJobPreview && jobPreviewData && (
+              <JobPreview
+                jobPreviewData={jobPreviewData}
+                onClick={() => setShowJobPreview(false)}
+              />
+            )}
+          </JobContainer>
+        </Align>
+      </Content>
     </Container>
   );
 }

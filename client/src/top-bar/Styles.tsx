@@ -1,16 +1,17 @@
 import styled from 'styled-components';
 
 export const Container = styled.div`
-  background-color: #1c1b1f;
+  background-color: #1e1e1e;
   width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
-  position: fixed;
+  position: relative;
   top: 0;
   padding: 5px 0;
   z-index: 1000;
   box-shadow: 0px 6px 3px 3px rgba(0, 0, 0, 0.3);
+  height: 3vh;
 `;
 
 export const Content = styled.div`

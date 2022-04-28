@@ -182,13 +182,15 @@ func getJob(w http.ResponseWriter, r *http.Request) {
 	json.NewDecoder(r.Body).Decode(&id)
 
 	result, err := db.Query(getPageSQL, id.Id)
+	fmt.Println(result, id)
 	if err != nil {
 		fmt.Println(err)
 	}
 
 	var job Job
 	for result.Next() {
-		result.Scan(
+
+		err := result.Scan(
 			&job.JobId,
 			&job.Title,
 			&job.Occupation,
@@ -201,8 +203,25 @@ func getJob(w http.ResponseWriter, r *http.Request) {
 			&job.PublishedDate,
 			&job.LastApplicationDate,
 			&job.Positions,
-			&job.Keywords,
 		)
+		if err != nil {
+			fmt.Println(err)
+		}
+
+		res, err := db.Query(getKeywordsSQL, id.Id)
+		if err != nil {
+			fmt.Println(err)
+		}
+		for res.Next() {
+			var keyword string
+			err := res.Scan(
+				&keyword,
+			)
+			if err != nil {
+				fmt.Println(err)
+			}
+			job.Keywords = append(job.Keywords, keyword)
+		}
 	}
 	fmt.Println(job)
 	defer result.Close()
