@@ -9,7 +9,7 @@ import (
 
 func createTLSConf() tls.Config {
 	rootCertPool := x509.NewCertPool()
-	pem, err := ioutil.ReadFile("./cert/ca-cert.pem")
+	pem, err := ioutil.ReadFile("./key/ca-cert.pem")
 	if err != nil {
 		fmt.Println(err)
 	}

@@ -6,6 +6,7 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import JobPage from './JobPage';
 import './main.css';
 import '../i18n';
+import { QueryClient, QueryClientProvider } from 'react-query';
 
 const GlobalStyle = createGlobalStyle`
   *{
@@ -24,16 +25,20 @@ const GlobalStyle = createGlobalStyle`
   }
 `;
 
+const queryClient = new QueryClient();
+
 ReactDOM.render(
-  <React.StrictMode>
-    <GlobalStyle />
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<App />} />
-        <Route path="/stats" element={<></>} />
-        <Route path="job/:id" element={<JobPage />} />
-      </Routes>
-    </BrowserRouter>
-  </React.StrictMode>,
+  <QueryClientProvider client={queryClient}>
+    <React.StrictMode>
+      <GlobalStyle />
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<App />} />
+          <Route path="/stats" element={<></>} />
+          <Route path="job/:id" element={<JobPage />} />
+        </Routes>
+      </BrowserRouter>
+    </React.StrictMode>
+  </QueryClientProvider>,
   document.getElementById('root')
 );

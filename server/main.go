@@ -152,6 +152,7 @@ func search(w http.ResponseWriter, r *http.Request) {
 				if err != nil {
 					fmt.Println(err)
 				}
+				fmt.Println(keyword)
 				job.Keywords = append(job.Keywords, keyword)
 			}
 
@@ -178,51 +179,44 @@ func getJob(w http.ResponseWriter, r *http.Request) {
 	}
 
 	var id Id
+	var job Job
 	json.NewDecoder(r.Body).Decode(&id)
 
-	result, err := db.Query(getPageSQL, id.Id)
+	db.QueryRow(getPageSQL, id.Id).Scan(
+		&job.JobId,
+		&job.Title,
+		&job.Occupation,
+		&job.CompanyName,
+		&job.Region,
+		&job.Municipality,
+		&job.Description,
+		&job.ApplyLink,
+		&job.Email,
+		&job.PublishedDate,
+		&job.LastApplicationDate,
+		&job.Positions,
+	)
 	if err != nil {
 		fmt.Println(err)
 	}
 
-	var job Job
-	for result.Next() {
-
-		err := result.Scan(
-			&job.JobId,
-			&job.Title,
-			&job.Occupation,
-			&job.CompanyName,
-			&job.Region,
-			&job.Municipality,
-			&job.Description,
-			&job.ApplyLink,
-			&job.Email,
-			&job.PublishedDate,
-			&job.LastApplicationDate,
-			&job.Positions,
+	res, err := db.Query(getKeywordsSQL, id.Id)
+	if err != nil {
+		fmt.Println(err)
+	}
+	defer res.Close()
+	for res.Next() {
+		var keyword string
+		err := res.Scan(
+			&keyword,
 		)
 		if err != nil {
 			fmt.Println(err)
 		}
-
-		res, err := db.Query(getKeywordsSQL, id.Id)
-		if err != nil {
-			fmt.Println(err)
-		}
-		for res.Next() {
-			var keyword string
-			err := res.Scan(
-				&keyword,
-			)
-			if err != nil {
-				fmt.Println(err)
-			}
-			job.Keywords = append(job.Keywords, keyword)
-		}
+		job.Keywords = append(job.Keywords, keyword)
 	}
-	fmt.Println(job)
-	defer result.Close()
+	// }
+	// defer result.Close()
 	json.NewEncoder(w).Encode(job)
 }
 
