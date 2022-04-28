@@ -86,19 +86,19 @@ type ScrapedJob struct {
 }
 
 type Job struct {
-	JobId               string `json:"jobId"`
-	Title               string `json:"title"`
-	Occupation          string `json:"occupation"`
-	CompanyName         string `json:"companyName"`
-	Region              string `json:"region"`
-	Municipality        string `json:"municipality"`
-	Description         string `json:"description"`
-	ApplyLink           string `json:"applyLink"`
-	Email               string `json:"email"`
-	PublishedDate       string `json:"publishedDate"`
-	LastApplicationDate string `json:"lastApplicationDate"`
-	Positions           int    `json:"positions"`
-	Keywords            string `json:"keywords"`
+	JobId               string   `json:"jobId"`
+	Title               string   `json:"title"`
+	Occupation          string   `json:"occupation"`
+	CompanyName         string   `json:"companyName"`
+	Region              string   `json:"region"`
+	Municipality        string   `json:"municipality"`
+	Description         string   `json:"description"`
+	ApplyLink           string   `json:"applyLink"`
+	Email               string   `json:"email"`
+	PublishedDate       string   `json:"publishedDate"`
+	LastApplicationDate string   `json:"lastApplicationDate"`
+	Positions           int      `json:"positions"`
+	Keywords            []string `json:"keywords"`
 }
 
 type JobPreview struct {

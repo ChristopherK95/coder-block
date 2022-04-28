@@ -2,13 +2,15 @@ import styled from 'styled-components';
 
 export const Container = styled.div`
   display: flex;
+  width: fit-content;
   flex-direction: column;
-  margin-top: 300px;
+  margin-top: 100px;
+  margin-bottom: 50px;
 `;
 
 export const SearchContainer = styled.div`
   position: relative;
-  background-color: #1c1b1f;
+  background-color: #1e1e1e;
   padding: 20px 20px 20px 20px;
   border-radius: 8px 8px 8px 0px;
   box-shadow: -6px 6px 3px 3px rgba(0, 0, 0, 0.3);
@@ -29,7 +31,7 @@ export const SearchBar = styled.input`
 
 export const Filter = styled.div<{ visible: boolean }>`
   box-shadow: -8px 10px 3px 1px rgba(0, 0, 0, 0.3);
-  background-color: #1c1b1f;
+  background-color: #1e1e1e;
   width: fit-content;
   display: flex;
   flex-direction: row;
@@ -85,16 +87,12 @@ export const FilterButton = styled.div<{
     }
     border-bottom: 5px solid #2a2a2b;
     bottom: -5px;
-  }`}// When active
-  /* 
-    background-color: #4a4a4a;
-    border-radius: 0px 5px 0 0; 
-  */
+  }`}
 `;
 
 export const Divider = styled.div<{ dropdownToggled: boolean }>`
   height: 20px;
   width: 2px;
   position: relative;
-  background-color: ${(p) => (p.dropdownToggled ? 'transparent' : '#f9f9f97d')};
+  background-color: ${(p) => (p.dropdownToggled ? 'transparent' : '#48bf5a')};
 `;
