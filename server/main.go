@@ -73,7 +73,6 @@ func search(w http.ResponseWriter, r *http.Request) {
 	var search Search
 	var jobs []JobPreview
 	json.NewDecoder(r.Body).Decode(&search)
-	fmt.Println(search)
 
 	var query string
 	var args []interface{}
@@ -182,7 +181,6 @@ func getJob(w http.ResponseWriter, r *http.Request) {
 	json.NewDecoder(r.Body).Decode(&id)
 
 	result, err := db.Query(getPageSQL, id.Id)
-	fmt.Println(result, id)
 	if err != nil {
 		fmt.Println(err)
 	}

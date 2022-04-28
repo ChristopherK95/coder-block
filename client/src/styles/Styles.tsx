@@ -34,3 +34,11 @@ export const JobContainer = styled.div`
   position: relative;
   justify-items: center;
 `;
+
+export const ResultsContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 640px;
+  z-index: 5;
+  background-color: #121212;
+`;
