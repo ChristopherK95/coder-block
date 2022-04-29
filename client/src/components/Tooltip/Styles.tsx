@@ -11,7 +11,7 @@ export const StyledTooltip = styled.div`
   right: 5px;
   transform: translateX(100%);
   color: #48bf5a;
-  box-shadow: -3px 0px 3px 3px rgba(0, 0, 0, 0.3);
+  box-shadow: -3px 0px 3px 3px rgba(0, 0, 0, 0.5);
   border-radius: 5px 5px 5px 0px;
   :after {
     content: '';
