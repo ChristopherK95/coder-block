@@ -4,6 +4,7 @@ import styled from 'styled-components';
 const Img = styled.img`
   width: 24px;
   height: 24px;
+  margin-right: 5px;
 `;
 
 const Keyword = (props: { keyword: string }) => {

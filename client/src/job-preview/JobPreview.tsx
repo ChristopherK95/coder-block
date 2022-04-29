@@ -2,6 +2,7 @@ import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { useQuery } from 'react-query';
 import Spinner from '../components/spinner/Spinner';
+import Keyword from '../job-results/Keyword';
 import { ReactComponent as PersonSvg } from '../svg/person.svg';
 
 import {
@@ -13,7 +14,6 @@ import {
   Company,
   Description,
   Email,
-  Keyword,
   KeywordsContainer,
   LastApplicationDate,
   MiddleContainer,
@@ -50,7 +50,7 @@ const JobPreview = (props: { id: string; onClick: () => void }) => {
         id: props.id,
       }),
     {
-      refetchInterval: false,
+      refetchOnWindowFocus: false,
     }
   );
 
@@ -110,7 +110,7 @@ const JobPreview = (props: { id: string; onClick: () => void }) => {
             </LastApplicationDate>
             <KeywordsContainer>
               {jobPreviewData.keywords?.map((k, index) => (
-                <Keyword key={index}>{k}</Keyword>
+                <Keyword keyword={k} key={index} />
               ))}
             </KeywordsContainer>
             <Positions>
