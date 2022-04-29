@@ -14,8 +14,8 @@ const Keyword = (props: { keyword: string }) => {
   const { t } = useTranslation('translation');
   const [isHover, setHover] = useState(false);
   const url = `https://cdn.jsdelivr.net/gh/devicons/devicon/icons/${t(
-    props.keyword.toLowerCase()
-  )}/${t(props.keyword.toLowerCase())}-original.svg`;
+    `${props.keyword.toLowerCase()}.1`
+  )}/${t(`${props.keyword.toLowerCase()}.2`)}`;
 
   return (
     <div

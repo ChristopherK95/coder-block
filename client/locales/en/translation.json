@@ -1,7 +1,114 @@
 {
-    "css": "css3",
-    "c#": "csharp",
-    ".net": "dot-net",
-    "vue": "vuejs",
-    "angular": "angularjs"
+    "css": {
+        "1": "css3",
+        "2": "css3-original.svg"
+    },
+    "c#": {
+        "1": "csharp",
+        "2": "csharp-original.svg"
+    },
+    ".net": {
+        "1": "dot-net",
+        "2": "dot-net-original.svg"
+    },
+    "vue": {
+        "1": "vuejs",
+        "2": "vuejs-original.svg"
+    },
+    "angular": {
+        "1": "angularjs",
+        "2": "angularjs-original.svg"
+    },
+    "html": {
+        "1": "html5",
+        "2": "html5-original.svg"
+    },
+    "rust": {
+        "1": "rust",
+        "2": "rust-plain.svg"
+    },
+    "javascript": {
+        "1": "javascript",
+        "2": "javascript-original.svg"
+    },
+    "azure": {
+        "1": "azure",
+        "2": "azure-original.svg"
+    },
+    "python": {
+        "1": "python",
+        "2": "python-original.svg"
+    },
+    "java": {
+        "1": "java",
+        "2": "java-original.svg"
+    },
+    "kotlin": {
+        "1": "kotlin",
+        "2": "kotlin-original.svg"
+    },
+    "c": {
+        "1": "c",
+        "2": "c-original.svg"
+    },
+    "git": {
+        "1": "git",
+        "2": "git-original.svg"
+    },
+    "c++": {
+        "1": "cplusplus",
+        "2": "cplusplus-original.svg"
+    },
+    "android": {
+        "1": "android",
+        "2": "android-original.svg"
+    },
+    "php": {
+        "1": "php",
+        "2": "php-original.svg"
+    },
+    "react": {
+        "1": "react",
+        "2": "react-original.svg"
+    },
+    "go": {
+        "1": "go",
+        "2": "go-original.svg"
+    },
+    "swift": {
+        "1": "swift",
+        "2": "swift-original.svg"
+    },
+    "ruby": {
+        "1": "ruby",
+        "2": "ruby-original.svg"
+    },
+    "dart": {
+        "1": "dart",
+        "2": "dart-original.svg"
+    },
+    "flutter": {
+        "1": "flutter",
+        "2": "flutter-original.svg"
+    },
+    "electron": {
+        "1": "electron",
+        "2": "electron-original.svg"
+    },
+    "sass": {
+        "1": "sass",
+        "2": "sass-original.svg"
+    },
+    "less": {
+        "1": "less",
+        "2": "less-plain-wordmark.svg"
+    },
+    "babel": {
+        "1": "babel",
+        "2": "babel-original.svg"
+    },
+    "haskell": {
+        "1": "haskell",
+        "2": "haskell-original.svg"
+    }
 }
