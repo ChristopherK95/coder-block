@@ -50,6 +50,7 @@ export const Municipality = styled.h2`
 export const KeywordsContainer = styled.div`
   display: flex;
   margin-top: 10px;
+  position: relative;
 `;
 
 export const Keyword = styled.p`
@@ -58,6 +59,7 @@ export const Keyword = styled.p`
   font-size: 14px;
   margin: 0 10px 0 0;
 `;
+
 export const ArrowContainer = styled.div`
   align-self: center;
   position: absolute;

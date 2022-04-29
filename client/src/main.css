@@ -9,3 +9,21 @@
   src: local('Epilogue-Light'),
     url(./fonts//Epilogue-Light.ttf) format('truetype');
 }
+
+@font-face {
+  font-family: 'Epilogue-Medium';
+  src: local('Epilogue-Medium'),
+    url(./fonts//Epilogue-Medium.ttf) format('truetype');
+}
+
+@font-face {
+  font-family: 'Epilogue-SemiBold';
+  src: local('Epilogue-SemiBold'),
+    url(./fonts//Epilogue-SemiBold.ttf) format('truetype');
+}
+
+@font-face {
+  font-family: 'Epilogue-Bold';
+  src: local('Epilogue-Bold'),
+    url(./fonts//Epilogue-Bold.ttf) format('truetype');
+}
