@@ -32,7 +32,7 @@ export const Container = styled.div`
 export const Title = styled.h1`
   color: white;
   font-size: 20px;
-  margin: 0;
+  margin: 0 40px 8px 0;
 `;
 
 export const Company = styled.h2`
@@ -49,6 +49,7 @@ export const Municipality = styled.h2`
 
 export const KeywordsContainer = styled.div`
   display: flex;
+  margin-top: 10px;
 `;
 
 export const Keyword = styled.p`

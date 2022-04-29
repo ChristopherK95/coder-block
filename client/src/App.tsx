@@ -33,10 +33,6 @@ function App() {
   );
 
   useEffect(() => {
-    console.log(isLoading, isFetching);
-  }, [isLoading, isFetching]);
-
-  useEffect(() => {
     if (data) {
       setJobResults(data.data);
     }
