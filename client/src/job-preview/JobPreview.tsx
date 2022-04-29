@@ -1,3 +1,7 @@
+import axios from 'axios';
+import { useEffect, useState } from 'react';
+import { useQuery } from 'react-query';
+import Spinner from '../components/spinner/Spinner';
 import { ReactComponent as PersonSvg } from '../svg/person.svg';
 
 import {
@@ -37,23 +41,33 @@ interface Job {
   keywords: string[];
 }
 
-const JobPreview = (props: { jobPreviewData: Job; onClick: () => void }) => {
-  const {
-    title,
-    occupation,
-    companyName,
-    municipality,
-    description,
-    applyLink,
-    email,
-    publishedDate,
-    lastApplicationDate,
-    positions,
-    keywords,
-  } = props.jobPreviewData;
+const JobPreview = (props: { id: string; onClick: () => void }) => {
+  const [jobPreviewData, setJobPreviewData] = useState<Job>();
+  const { data, isLoading, refetch } = useQuery(
+    'jobPreview',
+    async () =>
+      await axios.post('http://localhost:8000/api/get-job', {
+        id: props.id,
+      }),
+    {
+      refetchInterval: false,
+    }
+  );
+
+  useEffect(() => {
+    if (data) {
+      setJobPreviewData(data.data);
+    }
+  }, [data]);
+
+  useEffect(() => {
+    refetch();
+  }, [props.id]);
 
   const date = new Date().getTime();
-  const lastDate = new Date(lastApplicationDate + 'Z').getTime();
+  const lastDate = new Date(
+    jobPreviewData?.lastApplicationDate + 'Z'
+  ).getTime();
   let remainingTime = lastDate - date;
   let remainingTimeString = '';
 
@@ -80,41 +94,52 @@ const JobPreview = (props: { jobPreviewData: Job; onClick: () => void }) => {
         damping: 12,
       }}
     >
-      <UpperContainer>
-        <Title>{title}</Title>
-        <Occupation>{occupation}</Occupation>
-        <Company>{companyName}</Company>
-        <Municipality>{municipality}</Municipality>
-        <PublishedDate>Published: {publishedDate}</PublishedDate>
-        <LastApplicationDate>
-          Expires: {lastApplicationDate} ({remainingTimeString})
-        </LastApplicationDate>
-        <KeywordsContainer>
-          {keywords?.map((k, index) => (
-            <Keyword key={index}>{k}</Keyword>
-          ))}
-        </KeywordsContainer>
-        <Positions>
-          {' '}
-          Positions: {positions}
-          <i>
-            <PersonSvg />
-          </i>
-        </Positions>
-      </UpperContainer>
-      <MiddleContainer>
-        <Description
-          id="test"
-          dangerouslySetInnerHTML={{ __html: description }}
-        ></Description>
-      </MiddleContainer>
-      <BottomContainer>
-        <Email>{email}</Email>
-        <ButtonContainer>
-          <CloseButton onClick={props.onClick}>Close</CloseButton>
-          {applyLink && <ApplyLink href={applyLink}>Apply</ApplyLink>}
-        </ButtonContainer>
-      </BottomContainer>
+      {!isLoading && jobPreviewData ? (
+        <>
+          <UpperContainer>
+            <Title>{jobPreviewData.title}</Title>
+            <Occupation>{jobPreviewData.occupation}</Occupation>
+            <Company>{jobPreviewData.companyName}</Company>
+            <Municipality>{jobPreviewData.municipality}</Municipality>
+            <PublishedDate>
+              Published: {jobPreviewData.publishedDate}
+            </PublishedDate>
+            <LastApplicationDate>
+              Expires: {jobPreviewData.lastApplicationDate} (
+              {remainingTimeString})
+            </LastApplicationDate>
+            <KeywordsContainer>
+              {jobPreviewData.keywords?.map((k, index) => (
+                <Keyword key={index}>{k}</Keyword>
+              ))}
+            </KeywordsContainer>
+            <Positions>
+              {' '}
+              Positions: {jobPreviewData.positions}
+              <i>
+                <PersonSvg />
+              </i>
+            </Positions>
+          </UpperContainer>
+          <MiddleContainer>
+            <Description
+              id="test"
+              dangerouslySetInnerHTML={{ __html: jobPreviewData.description }}
+            ></Description>
+          </MiddleContainer>
+          <BottomContainer>
+            <Email>{jobPreviewData.email}</Email>
+            <ButtonContainer>
+              <CloseButton onClick={props.onClick}>Close</CloseButton>
+              {jobPreviewData.applyLink && (
+                <ApplyLink href={jobPreviewData.applyLink}>Apply</ApplyLink>
+              )}
+            </ButtonContainer>
+          </BottomContainer>
+        </>
+      ) : (
+        <Spinner />
+      )}
     </Card>
   );
 };

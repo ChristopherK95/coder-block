@@ -1,6 +1,21 @@
 import { motion } from 'framer-motion';
 import styled from 'styled-components';
 
+export const JobContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+  position: relative;
+  justify-items: center;
+`;
+
+export const ResultsContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 640px;
+  z-index: 5;
+  background-color: #121212;
+`;
+
 export const Container = styled.div`
   box-sizing: border-box;
   display: flex;
