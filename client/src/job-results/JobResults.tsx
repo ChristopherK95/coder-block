@@ -42,6 +42,7 @@ const JobResults = (props: Props) => {
             JobResult={j}
             showPreview={showPreview}
             showJobPreview={showJobPreview}
+            delay={index}
           />
         ))}
       </ResultsContainer>
