@@ -14,9 +14,10 @@ export const ResultsContainer = styled.div`
   width: 640px;
   z-index: 5;
   background-color: #121212;
+  padding-bottom: 100px;
 `;
 
-export const Container = styled.div`
+export const Container = styled(motion.div)`
   box-sizing: border-box;
   display: flex;
   flex-direction: column;

@@ -15,14 +15,23 @@ interface Props {
   JobResult: JobResultData;
   showPreview: (jobId: string) => void;
   showJobPreview: string;
+  delay: number;
 }
 
 const JobResult = (props: Props) => {
   const { jobId, title, companyName, municipality, keywords } = props.JobResult;
-  const { showJobPreview } = props;
+  const { showJobPreview, delay } = props;
 
   return (
-    <Container>
+    <Container
+      initial={{ opacity: 0, translateY: -100 }}
+      animate={{ opacity: 1, translateY: 0 }}
+      transition={{
+        duration: 0.3,
+        delay: delay * 0.1,
+        ease: 'easeOut',
+      }}
+    >
       <Title>{title}</Title>
       <Company>{companyName}</Company>
       <Municipality>{municipality}</Municipality>
