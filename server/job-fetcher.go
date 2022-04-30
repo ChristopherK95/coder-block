@@ -235,25 +235,6 @@ func getAdsOther(index string, region string) (ads []Ad) {
 }
 
 func sendToDB(job ScrapedJob) {
-	// url := "http://localhost:5000/"
-
-	// data, err := json.Marshal((job))
-	// if err != nil {
-	// 	panic(err.Error())
-	// }
-
-	// payload := strings.NewReader(string(data))
-
-	// req, err := http.NewRequest("POST", url, payload)
-	// if err != nil {
-	// 	panic(err.Error())
-	// }
-
-	// _, err = http.DefaultClient.Do(req)
-	// if err != nil {
-	// 	fmt.Println(err)
-	// }
-
 	var stringArr string
 
 	for i := 0; i < len(job.Keywords); i++ {
