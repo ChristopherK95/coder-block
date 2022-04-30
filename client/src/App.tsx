@@ -33,10 +33,12 @@ function App() {
   );
 
   useEffect(() => {
-    if (data) {
-      setJobResults(data.data);
-    }
+    setJobResults([]);
   }, [data]);
+
+  useEffect(() => {
+    if (data) setJobResults(data.data);
+  }, [jobResults]);
 
   const addKeyword = (keyword: string, e: React.MouseEvent) => {
     e.stopPropagation();
