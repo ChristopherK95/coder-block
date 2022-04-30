@@ -17,3 +17,4 @@ func queries() {
 }
 
 var getPageSQL = `SELECT * FROM job WHERE JobId = ?`
+var getKeywordsSQL = `SELECT Label FROM keywords WHERE JobId = ?`

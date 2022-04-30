@@ -121,6 +121,16 @@ func getAd(id string) (jobData ScrapedJob) {
 
 	for i := 0; i < len(keywordList); i++ {
 		if !stringInArr(job.Keywords, keywordList[i]) && (strings.Contains(iot.Description, keywordList[i]+" ") || strings.Contains(iot.Description, keywordList[i]+",") || strings.Contains(iot.Description, keywordList[i]+".")) {
+			switch keywordList[i] {
+			case "HTML5":
+				keywordList[i] = "HTML"
+			case "CSS3":
+				keywordList[i] = "CSS"
+			case "Node.js":
+				keywordList[i] = "NodeJs"
+			case "Node":
+				keywordList[i] = "NodeJs"
+			}
 			job.Keywords = append(job.Keywords, keywordList[i])
 		}
 	}
