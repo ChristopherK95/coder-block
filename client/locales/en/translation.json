@@ -110,5 +110,13 @@
     "haskell": {
         "1": "haskell",
         "2": "haskell-original.svg"
+    },
+    "nodejs": {
+        "1": "nodejs",
+        "2": "nodejs-original.svg"
+    },
+    "typescript": {
+        "1": "typescript",
+        "2": "typescript-original.svg"
     }
 }
