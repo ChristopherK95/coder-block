@@ -11,7 +11,7 @@ export const Container = styled.div`
   padding: 5px 0;
   z-index: 1000;
   box-shadow: 0px 6px 3px 3px rgba(0, 0, 0, 0.3);
-  height: 3vh;
+  height: 75px;
 `;
 
 export const Content = styled.div`
@@ -44,5 +44,14 @@ export const Link = styled.p`
   cursor: pointer;
   :hover {
     color: white;
+  }
+`;
+
+export const LogoContainer = styled.i`
+  display: block;
+
+  svg {
+    height: auto;
+    width: 360px;
   }
 `;
