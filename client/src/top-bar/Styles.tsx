@@ -54,4 +54,8 @@ export const LogoContainer = styled.i`
     height: auto;
     width: 360px;
   }
+
+  #g101820 {
+    filter: drop-shadow(10px 35px 10px rgba(0, 0, 0, 0.5));
+  }
 `;
