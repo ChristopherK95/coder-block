@@ -68,26 +68,6 @@ export const FilterButton = styled.div<{
   user-select: none;
   :hover {
   }
-  ${(p) =>
-    p.toggled &&
-    ` ::after {
-    content: '';
-    height: 10px;
-    display: block;
-    width: 8px;
-    position: absolute;
-    ${p.version === 'Keywords' ? 'right: -8px;' : 'left: -8px;'}
-    border-radius: ${
-      p.version === 'Keywords' ? '0px 0px 0px 10px;' : '0px 0px 10px 0px;'
-    }
-    ${
-      p.version === 'Keywords'
-        ? 'border-left: 5px solid #2a2a2b;'
-        : 'border-right: 5px solid #2a2a2b;'
-    }
-    border-bottom: 5px solid #2a2a2b;
-    bottom: -5px;
-  }`}
 `;
 
 export const Divider = styled.div<{ dropdownToggled: boolean }>`

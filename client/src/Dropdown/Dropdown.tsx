@@ -11,6 +11,8 @@ import {
   Arrow,
   NameContainer,
   Circle,
+  ExpandedItem,
+  ItemContainer,
 } from './styles';
 
 interface LocationBool {
@@ -104,7 +106,16 @@ const Dropdown = (props: {
 
   if (props.dropdownVersion === 'Keywords') {
     return (
-      <DropdownContainer>
+      <DropdownContainer
+        toggled={props.dropdownVersion}
+        initial={{ height: 0 }}
+        animate={{ height: '500px' }}
+        transition={{
+          type: 'spring',
+          stiffness: 200,
+          damping: 18,
+        }}
+      >
         {keywords?.map((k, index) => (
           <StyledKeyword
             key={index}
@@ -120,7 +131,16 @@ const Dropdown = (props: {
   }
 
   return (
-    <DropdownContainer>
+    <DropdownContainer
+      toggled={props.dropdownVersion}
+      initial={{ height: 0 }}
+      animate={{ height: '500px' }}
+      transition={{
+        type: 'spring',
+        stiffness: 200,
+        damping: 18,
+      }}
+    >
       {locations?.map((l, index) => (
         <div key={index}>
           <StyledLocation
@@ -132,12 +152,12 @@ const Dropdown = (props: {
             <ArrowContainer>
               <Arrow
                 expanded={l.expanded}
-                animate={{ rotate: l.expanded ? 90 : 0 }}
+                animate={{ rotate: l.expanded ? 270 : 90 }}
                 transition={{
                   type: 'spring',
-                  stiffness: 150,
+                  stiffness: 200,
                   duration: 0.2,
-                  damping: 12,
+                  damping: 16,
                 }}
                 initial={false}
               >
@@ -145,16 +165,31 @@ const Dropdown = (props: {
               </Arrow>
             </ArrowContainer>
           </StyledLocation>
-          {l.expanded &&
-            l.items.map((i, lindex) => (
-              <ExpandedSection
-                key={lindex}
-                toggledLocation={i.toggled}
-                onClick={(e) => setLocationValue(i.name, e)}
-              >
-                {i.name}
-              </ExpandedSection>
-            ))}
+          <ExpandedSection
+            toggledLocation={l.expanded}
+            initial={{ height: 0 }}
+            animate={{ height: l.expanded ? 'auto' : 0 }}
+            transition={{
+              type: l.expanded ? 'spring' : '',
+              stiffness: 400,
+              damping: 24,
+            }}
+          >
+            <div style={{ position: 'relative' }}>
+              {l.items.map((i, lindex) => (
+                <ItemContainer
+                  key={lindex}
+                  toggledLocation={i.toggled}
+                  onClick={(e) => setLocationValue(i.name, e)}
+                  animate={{
+                    opacity: l.expanded ? 1 : 0,
+                  }}
+                >
+                  <ExpandedItem>{i.name}</ExpandedItem>
+                </ItemContainer>
+              ))}
+            </div>
+          </ExpandedSection>
         </div>
       ))}
     </DropdownContainer>
