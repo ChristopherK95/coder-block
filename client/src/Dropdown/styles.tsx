@@ -1,7 +1,7 @@
 import { motion } from 'framer-motion';
 import styled from 'styled-components';
 
-export const DropdownContainer = styled.div`
+export const DropdownContainer = styled(motion.div)<{ toggled: string }>`
   display: flex;
   flex-direction: column;
   height: fit-content;
@@ -29,9 +29,31 @@ export const DropdownContainer = styled.div`
     background-color: #565656;
     border-radius: 5px;
   }
+  /* ${(p) =>
+    p.toggled !== '' &&
+    ` ::after {
+    opacity: ${p.toggled ? 1 : 0};
+    transition: opacity 2s 2s;
+    content: '';
+    height: 10px;
+    display: block;
+    width: 8px;
+    position: absolute;
+    ${p.toggled === 'Keywords' ? 'right: -8px;' : 'left: -8px;'}
+    border-radius: ${
+      p.toggled === 'Keywords' ? '0px 0px 0px 10px;' : '0px 0px 10px 0px;'
+    }
+    ${
+      p.toggled === 'Keywords'
+        ? 'border-left: 5px solid #2a2a2b;'
+        : 'border-right: 5px solid #2a2a2b;'
+    }
+    border-bottom: 5px solid #2a2a2b;
+    top: -5px;
+  }`} */
 `;
 
-export const StyledKeyword = styled.div<{ toggled: boolean }>`
+export const StyledKeyword = styled(motion.div)<{ toggled: boolean }>`
   display: flex;
   align-items: center;
   margin: 0;
@@ -47,7 +69,7 @@ export const StyledKeyword = styled.div<{ toggled: boolean }>`
   }
 `;
 
-export const StyledLocation = styled.div<{ expanded: boolean }>`
+export const StyledLocation = styled(motion.div)<{ expanded: boolean }>`
   display: flex;
   align-items: center;
   flex-direction: row;
@@ -65,9 +87,10 @@ export const StyledLocation = styled.div<{ expanded: boolean }>`
   }
 `;
 
-export const ExpandedSection = styled.div<{ toggledLocation: boolean }>`
-  padding: 5px 0 5px 25px;
+export const ItemContainer = styled(motion.div)<{ toggledLocation: boolean }>`
+  padding: 0px 0 0px 25px;
   background: #48484a;
+  overflow: hidden;
   filter: ${(p) => (p.toggledLocation ? 'brightness(1.7)' : 'brightness(1)')};
   user-select: none;
   cursor: pointer;
@@ -78,6 +101,18 @@ export const ExpandedSection = styled.div<{ toggledLocation: boolean }>`
     background-color: #303030;
     opacity: 1;
   }
+`;
+
+export const ExpandedSection = styled(motion.div)<{ toggledLocation: boolean }>`
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+`;
+
+export const ExpandedItem = styled(motion.div)`
+  height: 25px;
+  display: flex;
+  align-items: center;
 `;
 
 export const ArrowContainer = styled.div`
@@ -93,7 +128,7 @@ export const Arrow = styled(motion.div)<{ expanded: boolean }>`
   display: flex;
   align-items: center;
   justify-content: center;
-  fill: white;
+  fill: ${(p) => (p.expanded ? '#48bf5a' : 'white')};
 `;
 
 export const NameContainer = styled.div`
