@@ -90,15 +90,14 @@ const Search = (props: {
           toggled={dropdownVersion === 'Locations' ? true : false}
           dropdownVersion={dropdownVersion}
         />
-        {dropdownToggle && (
-          <Dropdown
-            dropdownVersion={dropdownVersion}
-            keywordValue={keywordValue}
-            setKeywordValue={setKeywordValue}
-            locationValue={locationValue}
-            setLocationValue={setLocationValue}
-          />
-        )}
+        <Dropdown
+          visible={dropdownToggle}
+          dropdownVersion={dropdownVersion}
+          keywordValue={keywordValue}
+          setKeywordValue={setKeywordValue}
+          locationValue={locationValue}
+          setLocationValue={setLocationValue}
+        />
       </Filter>
     </Container>
   );
