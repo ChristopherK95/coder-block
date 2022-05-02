@@ -37,7 +37,7 @@ export const Title = styled.h1`
 `;
 
 export const Company = styled.h2`
-  color: white;
+  color: #b6b6b6;
   font-size: 16px;
   margin: 0;
 `;
