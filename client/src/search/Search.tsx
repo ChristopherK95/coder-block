@@ -7,6 +7,7 @@ import {
   SearchBar,
   Container,
   Divider,
+  SearchButton,
 } from './Styles';
 
 const Search = (props: {
@@ -68,6 +69,7 @@ const Search = (props: {
             value={inputValue}
           />
         </form>
+        <SearchButton onClick={search}>Search</SearchButton>
       </SearchContainer>
       <Filter
         visible={dropdownToggle}
