@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import App from './App';
 import { createGlobalStyle } from 'styled-components';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import JobPage from './JobPage';
+import JobPage from './JobPage/JobPage';
 import './main.css';
 import '../i18n';
 import { QueryClient, QueryClientProvider } from 'react-query';

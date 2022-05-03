@@ -18,6 +18,7 @@ export const Content = styled.div`
   display: flex;
   position: relative;
   align-items: center;
+  height: 100%;
 `;
 
 export const Title = styled.div`
@@ -49,9 +50,10 @@ export const Link = styled.p`
 
 export const LogoContainer = styled.i`
   display: block;
-
+  height: 100%;
+  cursor: pointer;
   svg {
-    height: auto;
+    height: 100%;
     width: 360px;
   }
 

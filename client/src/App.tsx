@@ -63,9 +63,13 @@ function App() {
     refetch();
   };
 
+  const scrollToTop = () => {
+    cardRef.current?.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
   return (
     <Container>
-      <TopBar />
+      <TopBar scroll={scrollToTop} />
       <Content ref={cardRef}>
         <Align>
           <Search
