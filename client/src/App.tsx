@@ -12,28 +12,37 @@ function App() {
   const [inputValue, setInputValue] = useState<string>('');
   const [keywordValue, setKeywordValue] = useState<string[]>([]);
   const [locationValue, setLocationValue] = useState<string[]>([]);
+  const [page, setPage] = useState<number>(0);
   const cardRef = useRef<HTMLDivElement>(null);
+  const [pages, setPages] = useState<number>();
 
   const paramsSet = (): boolean =>
     inputValue === '' &&
     locationValue.length === 0 &&
     keywordValue.length === 0;
 
-  const { data, isLoading, isFetching, refetch } = useQuery(
-    'jobs',
+  const { data, isLoading, isFetching, refetch, isPreviousData } = useQuery(
+    ['jobs', page],
     async () =>
       paramsSet()
-        ? await axios.get('http://localhost:8000/api/jobs')
-        : await axios.post('http://localhost:8000/api/search', {
+        ? await axios.get('http://localhost:8000/api/jobs?page=' + page)
+        : await axios.post('http://localhost:8000/api/search?page=' + page, {
             input: inputValue,
             locations: locationValue,
             keywords: keywordValue,
           }),
-    { enabled: false, refetchOnWindowFocus: false }
+    {
+      enabled: false,
+      refetchOnWindowFocus: false,
+      keepPreviousData: true,
+      staleTime: 60000,
+    }
   );
 
   useEffect(() => {
     setJobResults([]);
+    // setPages(data.data.)
+    console.log(data?.data);
   }, [data]);
 
   useEffect(() => {

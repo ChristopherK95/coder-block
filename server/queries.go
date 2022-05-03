@@ -18,3 +18,21 @@ func queries() {
 
 var getPageSQL = `SELECT * FROM job WHERE JobId = ?`
 var getKeywordsSQL = `SELECT Label FROM keywords WHERE JobId = ?`
+
+func totalRowsSQL(input string, locations []string, keywords []string) {
+	var sql = `SELECT COUNT(JobId) FROM job`
+	if input != "" {
+		sql += " WHERE INSTR(Title, ?)"
+	}
+	for i := 0; i < len(locations); i++ {
+		if i != 0 {
+			sql += " OR Municipality = ?"
+			continue
+		}
+		if input == "" {
+			sql += " WHERE Municipality = ?"
+		} else {
+			sql += " OR Municipality = ?"
+		}
+	}
+}
