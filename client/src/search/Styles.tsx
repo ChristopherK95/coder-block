@@ -59,7 +59,8 @@ export const SearchButton = styled.button`
 export const Filter = styled.div<{ visible: boolean }>`
   box-shadow: -8px 10px 3px 1px rgba(0, 0, 0, 0.3);
   background-color: #1e1e1e;
-  width: fit-content;
+  width: 265px;
+  height: 42px;
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
