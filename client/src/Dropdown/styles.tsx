@@ -1,12 +1,13 @@
 import { motion } from 'framer-motion';
 import styled from 'styled-components';
 
-export const DropdownContainer = styled(motion.div)<{ toggled: string }>`
+export const DropdownContainer = styled(motion.div)<{
+  toggled: string;
+}>`
   display: flex;
   flex-direction: column;
-  height: fit-content;
   width: 100%;
-  max-height: 600px;
+  height: 500px;
   background-color: #2a2a2b;
   color: white;
   border-radius: 0px 0px 8px 8px;
@@ -15,10 +16,9 @@ export const DropdownContainer = styled(motion.div)<{ toggled: string }>`
   left: 0;
   z-index: 10;
   scrollbar-width: thin;
-  overflow-y: auto;
+  overflow: hidden;
   outline: none;
   box-shadow: -8px 12px 3px 1px rgba(0, 0, 0, 0.3);
-
   ::-webkit-scrollbar {
     width: 8px;
     border-radius: 5px;
@@ -85,6 +85,41 @@ export const StyledLocation = styled(motion.div)<{ expanded: boolean }>`
     background-color: #303030;
     opacity: 1;
   }
+`;
+
+export const ScrollContainer = styled.div`
+  width: 100%;
+  height: 100%;
+  position: relative;
+  overflow-y: auto;
+  scrollbar-color: #48bf5a #2a2a2b;
+`;
+
+export const SearchBar = styled.input`
+  width: 90%;
+  height: 30px;
+  box-sizing: border-box;
+  margin: 15px auto 15px auto;
+  background-color: white;
+  border-radius: 5px;
+  border: none;
+  font-size: 16px;
+  box-shadow: -3px 3px 5px 2px rgba(0, 0, 0, 0.5);
+  :focus {
+    outline: solid 2px #48bf5a;
+  }
+`;
+
+export const Resize = styled(motion.div)`
+  display: flex;
+  width: 100%;
+  height: 25px;
+  position: relative;
+  justify-content: center;
+  align-items: center;
+  padding: 5px 0 5px 0;
+  cursor: row-resize;
+  background-color: #505052;
 `;
 
 export const ItemContainer = styled(motion.div)<{ toggledLocation: boolean }>`

@@ -49,15 +49,16 @@ const Search = (props: {
     }
   };
 
-  const handleOnBlur = () => {
+  const handleOnBlur = (e: React.FocusEvent<HTMLDivElement>) => {
+    if (e.target?.id === 'keywordfilter' && e.relatedTarget?.id === 'filter') {
+      return;
+    }
+    if (e.relatedTarget?.id === 'keywordfilter') {
+      return;
+    }
     setDropdownToggle(false);
     setDropdownVersion('');
   };
-
-  useEffect(() => {
-    if (!focusRef.current) return;
-    focusRef.current.focus();
-  }, []);
 
   return (
     <Container>
@@ -76,6 +77,7 @@ const Search = (props: {
         tabIndex={1}
         onBlur={handleOnBlur}
         ref={focusRef}
+        id="filter"
       >
         <Button
           label={'Keywords'}
