@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 import Dropdown from '../Dropdown/Dropdown';
 import { Button } from './Button';
 import {
@@ -7,6 +7,7 @@ import {
   SearchBar,
   Container,
   Divider,
+  SearchButton,
 } from './Styles';
 
 const Search = (props: {
@@ -14,9 +15,9 @@ const Search = (props: {
   setInputValue: React.Dispatch<React.SetStateAction<string>>;
   search: (e: React.SyntheticEvent) => Promise<void>;
   keywordValue: string[];
-  setKeywordValue: (keyword: string, e: React.MouseEvent) => void;
+  setKeywordValue: (keyword: string, e?: React.MouseEvent) => void;
   locationValue: string[];
-  setLocationValue: (location: string, e: React.MouseEvent) => void;
+  setLocationValue: (location: string | string[], e?: React.MouseEvent) => void;
 }) => {
   const {
     inputValue,
@@ -31,6 +32,7 @@ const Search = (props: {
   const [dropdownVersion, setDropdownVersion] = useState<
     'Keywords' | 'Locations' | ''
   >('');
+  const [allSelected, setAllSelected] = useState<string[]>([]);
 
   const focusRef = useRef<HTMLDivElement>(null);
 
@@ -48,15 +50,16 @@ const Search = (props: {
     }
   };
 
-  const handleOnBlur = () => {
+  const handleOnBlur = (e: React.FocusEvent<HTMLDivElement>) => {
+    if (e.target?.id === 'keywordfilter' && e.relatedTarget?.id === 'filter') {
+      return;
+    }
+    if (e.relatedTarget?.id === 'keywordfilter') {
+      return;
+    }
     setDropdownToggle(false);
     setDropdownVersion('');
   };
-
-  useEffect(() => {
-    if (!focusRef.current) return;
-    focusRef.current.focus();
-  }, []);
 
   return (
     <Container>
@@ -68,12 +71,14 @@ const Search = (props: {
             value={inputValue}
           />
         </form>
+        <SearchButton onClick={search}>Search</SearchButton>
       </SearchContainer>
       <Filter
         visible={dropdownToggle}
         tabIndex={1}
         onBlur={handleOnBlur}
         ref={focusRef}
+        id="filter"
       >
         <Button
           label={'Keywords'}
@@ -97,6 +102,8 @@ const Search = (props: {
             setKeywordValue={setKeywordValue}
             locationValue={locationValue}
             setLocationValue={setLocationValue}
+            allSelected={allSelected}
+            setAllSelected={setAllSelected}
           />
         )}
       </Filter>

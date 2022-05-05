@@ -4,7 +4,6 @@ export const Container = styled.div`
   display: flex;
   justify-content: flex-start;
   align-items: center;
-  background-color: #333537;
   /* background: linear-gradient(to right, #cb1d90, #bf342a, #e87a14); */
   width: 100%;
   flex-direction: column;

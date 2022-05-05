@@ -1,4 +1,5 @@
 import Keyword from './Keyword';
+
 import { ReactComponent as ArrowSvg } from '../svg/arrow.svg';
 import {
   Arrow,
@@ -10,6 +11,7 @@ import {
   Title,
 } from './styles';
 import { JobResultData } from './types';
+import { Link } from 'react-router-dom';
 
 interface Props {
   JobResult: JobResultData;
@@ -32,7 +34,9 @@ const JobResult = (props: Props) => {
         ease: 'easeOut',
       }}
     >
-      <Title>{title}</Title>
+      <Title>
+        <Link to={`/job/${jobId}`}>{title}</Link>
+      </Title>
       <Company>{companyName}</Company>
       <Municipality>{municipality}</Municipality>
       <KeywordsContainer>

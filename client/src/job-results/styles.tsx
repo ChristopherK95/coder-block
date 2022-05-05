@@ -34,10 +34,17 @@ export const Title = styled.h1`
   color: white;
   font-size: 20px;
   margin: 0 40px 8px 0;
+  a {
+    color: white;
+    text-decoration: none;
+    :visited {
+      color: #b6b6b6;
+    }
+  }
 `;
 
 export const Company = styled.h2`
-  color: white;
+  color: #b6b6b6;
   font-size: 16px;
   margin: 0;
 `;
