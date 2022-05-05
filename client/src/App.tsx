@@ -55,7 +55,7 @@ function App() {
   }, [jobResults]);
 
   useEffect(() => {
-    if (page === 0) return;
+    if (nJobs === 0) return;
     refetch();
   }, [page]);
 
@@ -97,11 +97,17 @@ function App() {
             locationValue={locationValue}
             setLocationValue={addLocation}
           />
+
           {nJobs && (
             <JobCounter>
+              <span>
+                Showing {page * 50} -{' '}
+                {page + 1 !== pages ? (page + 1) * 50 : nJobs} of
+              </span>{' '}
               {nJobs} <span>jobs</span>
             </JobCounter>
           )}
+
           <JobResults
             jobResults={jobResults}
             isLoading={isLoading}

@@ -10,10 +10,7 @@ const Pagination = (props: {
   const [pageBtns, setPageBtns] = useState<number[]>([]);
 
   useEffect(() => {
-    console.log(pages);
-    console.log(currentPage);
     if (currentPage >= 4 && currentPage <= pages - 4) {
-      console.log(1);
       const arr: number[] = [];
       for (let i = currentPage - 2; i < pages && arr.length < 5; i++) {
         arr.push(i);
@@ -21,7 +18,6 @@ const Pagination = (props: {
       setPageBtns(arr);
     }
     if (currentPage < 4) {
-      console.log(2);
       const arr: number[] = [];
       for (let i = 0; i < pages && arr.length < 5; i++) {
         arr.push(i);
@@ -29,9 +25,8 @@ const Pagination = (props: {
       setPageBtns(arr);
     }
     if (currentPage > pages - 4) {
-      console.log(3);
       const arr: number[] = [];
-      for (let i = pages - 4; i < pages && arr.length < 5; i++) {
+      for (let i = pages - 5; i < pages && arr.length < 5; i++) {
         arr.push(i);
       }
       setPageBtns(arr);
@@ -52,7 +47,7 @@ const Pagination = (props: {
           {btn + 1}
         </PaginationBtn>
       ))}
-      {currentPage < pages - 5 && (
+      {currentPage < pages - 4 && (
         <PaginationBtn onClick={() => setPage(pages - 1)}>
           ..{pages}
         </PaginationBtn>

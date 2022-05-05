@@ -47,13 +47,12 @@ export const ResultsContainer = styled.div`
 export const JobCounter = styled.h1`
   color: white;
   margin: 0 0 10px 0;
-  font-size: 16px;
-  font-weight: bold;
+  font-size: 14px;
   font-family: Epilogue-Bold;
 
   span {
     font-family: Epilogue-Bold;
     font-size: 14px;
-    color: #6c6c6c;
+    color: #818181;
   }
 `;
