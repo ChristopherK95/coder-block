@@ -40,8 +40,12 @@ function App() {
     if (data) setJobResults(data.data);
   }, [jobResults]);
 
-  const addKeyword = (keyword: string, e: React.MouseEvent) => {
-    e.stopPropagation();
+  const addKeyword = (keyword: string, e?: React.MouseEvent) => {
+    e?.stopPropagation();
+    if (!keyword) {
+      setKeywordValue([]);
+      return;
+    }
     if (keywordValue.includes(keyword)) {
       setKeywordValue(keywordValue.filter((k) => k !== keyword));
     } else {
@@ -49,12 +53,21 @@ function App() {
     }
   };
 
-  const addLocation = (location: string, e: React.MouseEvent) => {
-    e.stopPropagation();
-    if (locationValue.includes(location)) {
-      setLocationValue(locationValue.filter((k) => k !== location));
+  const addLocation = (location: string | string[], e?: React.MouseEvent) => {
+    e?.stopPropagation();
+    if (!location) {
+      setLocationValue([]);
+      return;
+    }
+    if (typeof location === 'string') {
+      if (locationValue.includes(location)) {
+        setLocationValue(locationValue.filter((k) => k !== location));
+      } else {
+        setLocationValue([...locationValue, location]);
+      }
     } else {
-      setLocationValue([...locationValue, location]);
+      const arr = location.filter((l) => !locationValue.includes(l));
+      setLocationValue([...locationValue, ...arr]);
     }
   };
 

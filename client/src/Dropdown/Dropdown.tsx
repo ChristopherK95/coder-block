@@ -14,6 +14,10 @@ import {
   ExpandedItem,
   ItemContainer,
   ScrollContainer,
+  Unselect,
+  BottomContainer,
+  SelectAll,
+  SelectAllContainer,
 } from './styles';
 import Search from './Search';
 
@@ -36,9 +40,9 @@ interface Keyword {
 const Dropdown = (props: {
   dropdownVersion: string;
   keywordValue: string[];
-  setKeywordValue: (keyword: string, e: React.MouseEvent) => void;
+  setKeywordValue: (keyword: string, e?: React.MouseEvent) => void;
   locationValue: string[];
-  setLocationValue: (location: string, e: React.MouseEvent) => void;
+  setLocationValue: (location: string | string[], e?: React.MouseEvent) => void;
 }) => {
   const { keywordValue, setKeywordValue, locationValue, setLocationValue } =
     props;
@@ -65,6 +69,45 @@ const Dropdown = (props: {
 
   const startsWith = (val: string, k: Keyword) => {
     return k.label.toLowerCase().startsWith(val);
+  };
+
+  const clearKeyword = () => {
+    const arr = keywords.map((k) => ({
+      label: k.label,
+      toggled: false,
+    }));
+    setKeywordValue('');
+    setKeywords(arr);
+  };
+
+  const clearLocation = () => {
+    const arr = locations.map((l) => ({
+      name: l.name,
+      expanded: l.expanded,
+      items: l.items.map((i) => ({
+        name: i.name,
+        toggled: false,
+      })),
+    }));
+    setLocationValue('');
+    setLocations(arr);
+  };
+
+  const selectAll = (name: string) => {
+    const arr = locations.map((l) => ({
+      name: l.name,
+      expanded: l.expanded,
+      items: l.items.map((i) => ({
+        name: i.name,
+        toggled: l.name === name ? true : false,
+      })),
+    }));
+    setLocations(arr);
+    const arrVal: string[] = [];
+    arr
+      .find((i) => i.name === name)
+      ?.items.forEach((element) => arrVal.push(element.name));
+    setLocationValue(arrVal);
   };
 
   useEffect(() => {
@@ -143,6 +186,9 @@ const Dropdown = (props: {
               </StyledKeyword>
             ))}
         </ScrollContainer>
+        <BottomContainer>
+          <Unselect onClick={clearKeyword}>Clear</Unselect>
+        </BottomContainer>
       </DropdownContainer>
     );
   }
@@ -194,6 +240,11 @@ const Dropdown = (props: {
               }}
             >
               <div style={{ position: 'relative' }}>
+                <SelectAllContainer>
+                  <SelectAll onClick={() => selectAll(l.name)}>
+                    Select All
+                  </SelectAll>
+                </SelectAllContainer>
                 {l.items.map((i, lindex) => (
                   <ItemContainer
                     key={lindex}
@@ -203,6 +254,7 @@ const Dropdown = (props: {
                       opacity: l.expanded ? 1 : 0,
                     }}
                   >
+                    {i.toggled && <Circle />}
                     <ExpandedItem>{i.name}</ExpandedItem>
                   </ItemContainer>
                 ))}
@@ -211,6 +263,9 @@ const Dropdown = (props: {
           </div>
         ))}
       </ScrollContainer>
+      <BottomContainer>
+        <Unselect onClick={clearLocation}>Clear</Unselect>
+      </BottomContainer>
     </DropdownContainer>
   );
 };

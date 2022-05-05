@@ -15,9 +15,9 @@ const Search = (props: {
   setInputValue: React.Dispatch<React.SetStateAction<string>>;
   search: (e: React.SyntheticEvent) => Promise<void>;
   keywordValue: string[];
-  setKeywordValue: (keyword: string, e: React.MouseEvent) => void;
+  setKeywordValue: (keyword: string, e?: React.MouseEvent) => void;
   locationValue: string[];
-  setLocationValue: (location: string, e: React.MouseEvent) => void;
+  setLocationValue: (location: string | string[], e?: React.MouseEvent) => void;
 }) => {
   const {
     inputValue,
