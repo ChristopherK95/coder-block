@@ -15,9 +15,9 @@ const Search = (props: {
   setInputValue: React.Dispatch<React.SetStateAction<string>>;
   search: (e: React.SyntheticEvent) => Promise<void>;
   keywordValue: string[];
-  setKeywordValue: (keyword: string, e: React.MouseEvent) => void;
+  setKeywordValue: (keyword: string, e?: React.MouseEvent) => void;
   locationValue: string[];
-  setLocationValue: (location: string, e: React.MouseEvent) => void;
+  setLocationValue: (location: string | string[], e?: React.MouseEvent) => void;
 }) => {
   const {
     inputValue,
@@ -32,6 +32,7 @@ const Search = (props: {
   const [dropdownVersion, setDropdownVersion] = useState<
     'Keywords' | 'Locations' | ''
   >('');
+  const [allSelected, setAllSelected] = useState<string[]>([]);
 
   const focusRef = useRef<HTMLDivElement>(null);
 
@@ -101,6 +102,8 @@ const Search = (props: {
             setKeywordValue={setKeywordValue}
             locationValue={locationValue}
             setLocationValue={setLocationValue}
+            allSelected={allSelected}
+            setAllSelected={setAllSelected}
           />
         )}
       </Filter>
