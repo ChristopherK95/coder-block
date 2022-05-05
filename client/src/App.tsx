@@ -3,9 +3,11 @@ import axios from 'axios';
 import { JobResultData } from './job-results/types';
 import Search from './search/Search';
 import TopBar from './top-bar/TopBar';
-import { Container, Content, Align } from './styles/Styles';
+import { Container, Content, Align, JobCounter } from './styles/Styles';
 import { useQuery } from 'react-query';
 import JobResults from './job-results/JobResults';
+import { ReactQueryDevtools } from 'react-query/devtools';
+import Pagination from './components/pagination/Pagination';
 
 function App() {
   const [jobResults, setJobResults] = useState<JobResultData[]>([]);
@@ -15,13 +17,14 @@ function App() {
   const [page, setPage] = useState<number>(0);
   const cardRef = useRef<HTMLDivElement>(null);
   const [pages, setPages] = useState<number>();
+  const [nJobs, setNJobs] = useState<number>();
 
   const paramsSet = (): boolean =>
     inputValue === '' &&
     locationValue.length === 0 &&
     keywordValue.length === 0;
 
-  const { data, isLoading, isFetching, refetch, isPreviousData } = useQuery(
+  const { data, isLoading, isFetching, refetch } = useQuery(
     ['jobs', page],
     async () =>
       paramsSet()
@@ -41,13 +44,20 @@ function App() {
 
   useEffect(() => {
     setJobResults([]);
-    // setPages(data.data.)
-    console.log(data?.data);
   }, [data]);
 
   useEffect(() => {
-    if (data) setJobResults(data.data);
+    if (data) {
+      setJobResults(data.data.jobs);
+      setPages(data.data.pages);
+      setNJobs(data.data.numberofJobs);
+    }
   }, [jobResults]);
+
+  useEffect(() => {
+    if (page === 0) return;
+    refetch();
+  }, [page]);
 
   const addKeyword = (keyword: string, e: React.MouseEvent) => {
     e.stopPropagation();
@@ -69,6 +79,7 @@ function App() {
 
   const search = async (e: React.SyntheticEvent) => {
     e.preventDefault();
+    setPage(0);
     refetch();
   };
 
@@ -86,13 +97,23 @@ function App() {
             locationValue={locationValue}
             setLocationValue={addLocation}
           />
+          {nJobs && (
+            <JobCounter>
+              {nJobs} <span>jobs</span>
+            </JobCounter>
+          )}
           <JobResults
             jobResults={jobResults}
             isLoading={isLoading}
             isFetching={isFetching}
           />
+
+          {pages && (
+            <Pagination currentPage={page} pages={pages} setPage={setPage} />
+          )}
         </Align>
       </Content>
+      <ReactQueryDevtools />
     </Container>
   );
 }

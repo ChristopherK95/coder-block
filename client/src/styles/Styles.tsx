@@ -8,12 +8,13 @@ export const Container = styled.div`
   /* background: linear-gradient(to right, #cb1d90, #bf342a, #e87a14); */
   width: 100%;
   flex-direction: column;
-  min-height: 100%;
+  height: 100vh;
   background-color: #121212;
 `;
 
 export const Content = styled.div`
-  height: 97vh;
+  box-sizing: border-box;
+  height: calc(100% - 85px);
   overflow: auto;
   width: 100vw;
   display: flex;
@@ -41,4 +42,18 @@ export const ResultsContainer = styled.div`
   width: 640px;
   z-index: 5;
   background-color: #121212;
+`;
+
+export const JobCounter = styled.h1`
+  color: white;
+  margin: 0 0 10px 0;
+  font-size: 16px;
+  font-weight: bold;
+  font-family: Epilogue-Bold;
+
+  span {
+    font-family: Epilogue-Bold;
+    font-size: 14px;
+    color: #6c6c6c;
+  }
 `;
