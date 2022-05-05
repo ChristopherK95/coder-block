@@ -32,6 +32,7 @@ const Search = (props: {
   const [dropdownVersion, setDropdownVersion] = useState<
     'Keywords' | 'Locations' | ''
   >('');
+  const [allSelected, setAllSelected] = useState<string[]>([]);
 
   const focusRef = useRef<HTMLDivElement>(null);
 
@@ -101,6 +102,8 @@ const Search = (props: {
             setKeywordValue={setKeywordValue}
             locationValue={locationValue}
             setLocationValue={setLocationValue}
+            allSelected={allSelected}
+            setAllSelected={setAllSelected}
           />
         )}
       </Filter>
