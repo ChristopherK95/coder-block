@@ -55,6 +55,12 @@ function App() {
 
   const addLocation = (location: string | string[], e?: React.MouseEvent) => {
     e?.stopPropagation();
+    if (typeof location !== 'string' && location[0] === 'remove') {
+      const arr = location.filter((l) => locationValue.includes(l));
+      const arrRemoved = locationValue.filter((i) => !arr.includes(i));
+      setLocationValue(arrRemoved);
+      return;
+    }
     if (!location) {
       setLocationValue([]);
       return;

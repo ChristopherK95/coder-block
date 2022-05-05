@@ -43,9 +43,17 @@ const Dropdown = (props: {
   setKeywordValue: (keyword: string, e?: React.MouseEvent) => void;
   locationValue: string[];
   setLocationValue: (location: string | string[], e?: React.MouseEvent) => void;
+  allSelected: string[];
+  setAllSelected: React.Dispatch<React.SetStateAction<string[]>>;
 }) => {
-  const { keywordValue, setKeywordValue, locationValue, setLocationValue } =
-    props;
+  const {
+    keywordValue,
+    setKeywordValue,
+    locationValue,
+    setLocationValue,
+    allSelected,
+    setAllSelected,
+  } = props;
   const [keywords, setKeywords] = useState<Keyword[]>([]);
   const [locations, setLocations] = useState<LocationBool[]>([]);
   const [filteredKeywords, setFilteredKeywords] = useState<string>('');
@@ -94,20 +102,40 @@ const Dropdown = (props: {
   };
 
   const selectAll = (name: string) => {
-    const arr = locations.map((l) => ({
-      name: l.name,
-      expanded: l.expanded,
-      items: l.items.map((i) => ({
-        name: i.name,
-        toggled: l.name === name ? true : false,
-      })),
-    }));
-    setLocations(arr);
-    const arrVal: string[] = [];
-    arr
-      .find((i) => i.name === name)
-      ?.items.forEach((element) => arrVal.push(element.name));
-    setLocationValue(arrVal);
+    if (allSelected.find((k) => k === name)) {
+      setAllSelected(allSelected.filter((i) => i !== name));
+      setLocations(
+        locations.map((l) => ({
+          name: l.name,
+          expanded: l.expanded,
+          items: l.items.map((i) => ({
+            name: i.name,
+            toggled: l.name === name ? false : i.toggled,
+          })),
+        }))
+      );
+      const arrVal: string[] = ['remove'];
+      locations
+        .find((l) => l.name === name)
+        ?.items.forEach((i) => arrVal.push(i.name));
+      setLocationValue(arrVal);
+    } else {
+      setAllSelected([...allSelected, name]);
+      const arr = locations.map((l) => ({
+        name: l.name,
+        expanded: l.expanded,
+        items: l.items.map((i) => ({
+          name: i.name,
+          toggled: l.name === name ? true : false,
+        })),
+      }));
+      setLocations(arr);
+      const arrVal: string[] = [];
+      arr
+        .find((i) => i.name === name)
+        ?.items.forEach((element) => arrVal.push(element.name));
+      setLocationValue(arrVal);
+    }
   };
 
   useEffect(() => {
@@ -242,7 +270,9 @@ const Dropdown = (props: {
               <div style={{ position: 'relative' }}>
                 <SelectAllContainer>
                   <SelectAll onClick={() => selectAll(l.name)}>
-                    Select All
+                    {allSelected.find((li) => li === l.name)
+                      ? 'Unselect All'
+                      : 'Select All'}
                   </SelectAll>
                 </SelectAllContainer>
                 {l.items.map((i, lindex) => (
