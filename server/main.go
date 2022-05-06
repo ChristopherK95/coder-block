@@ -193,7 +193,7 @@ func search(w http.ResponseWriter, r *http.Request) {
 		}
 
 		defer result.Close()
-
+		
 		db.QueryRow(totalRowsSQL(search.Input, search.Locations, search.Keywords), args...).Scan(
 			&res.NumberofJobs,
 		)

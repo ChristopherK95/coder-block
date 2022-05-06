@@ -5,9 +5,15 @@ const Pagination = (props: {
   currentPage: number;
   pages: number;
   setPage: (page: number) => void;
+  scrollToTop: () => void;
 }) => {
-  const { currentPage, pages, setPage } = props;
+  const { currentPage, pages, setPage, scrollToTop } = props;
   const [pageBtns, setPageBtns] = useState<number[]>([]);
+
+  const handleClick = (page: number) => {
+    setPage(page);
+    scrollToTop();
+  };
 
   useEffect(() => {
     if (currentPage >= 4 && currentPage <= pages - 4) {
@@ -16,6 +22,7 @@ const Pagination = (props: {
         arr.push(i);
       }
       setPageBtns(arr);
+      return;
     }
     if (currentPage < 4) {
       const arr: number[] = [];
@@ -23,6 +30,7 @@ const Pagination = (props: {
         arr.push(i);
       }
       setPageBtns(arr);
+      return;
     }
     if (currentPage > pages - 4) {
       const arr: number[] = [];
@@ -36,19 +44,19 @@ const Pagination = (props: {
   return (
     <Container>
       {currentPage > 3 && (
-        <PaginationBtn onClick={() => setPage(0)}>1..</PaginationBtn>
+        <PaginationBtn onClick={() => handleClick(0)}>1..</PaginationBtn>
       )}
       {pageBtns.map((btn, index) => (
         <PaginationBtn
           key={index}
-          onClick={() => setPage(btn)}
+          onClick={() => handleClick(btn)}
           selected={currentPage === btn}
         >
           {btn + 1}
         </PaginationBtn>
       ))}
       {currentPage < pages - 4 && (
-        <PaginationBtn onClick={() => setPage(pages - 1)}>
+        <PaginationBtn onClick={() => handleClick(pages - 1)}>
           ..{pages}
         </PaginationBtn>
       )}
