@@ -6,7 +6,9 @@ import (
 	"encoding/json"
 	"fmt"
 	"log"
+	"math"
 	"net/http"
+	"strconv"
 	"time"
 
 	"github.com/go-sql-driver/mysql"
@@ -18,9 +20,17 @@ func getJobs(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
 	w.Header().Set("Connection", "keep-alive")
 
+	type Response struct {
+		Jobs         []JobPreview `json:"jobs"`
+		NumberofJobs int          `json:"numberofJobs"`
+		Pages        int          `json:"pages"`
+	}
+	var res Response
+
+	page, _ := strconv.Atoi(r.URL.Query().Get("page"))
 	var jobs []JobPreview
 
-	result, _ := db.Query("SELECT JobId, Title, Occupation, CompanyName, Municipality, PublishedDate, LastApplicationDate FROM job LIMIT 50;")
+	result, _ := db.Query("SELECT JobId, Title, Occupation, CompanyName, Municipality, PublishedDate, LastApplicationDate FROM job LIMIT " + strconv.Itoa(page*50) + ",50;")
 	if err != nil {
 		fmt.Println(err)
 	}
@@ -32,14 +42,15 @@ func getJobs(w http.ResponseWriter, r *http.Request) {
 			fmt.Println(err)
 		}
 
-		res, err := db.Query("SELECT Label FROM keywords WHERE JobId = ?", job.JobId)
+		keys, err := db.Query("SELECT Label FROM keywords WHERE JobId = ?", job.JobId)
 		if err != nil {
 			fmt.Println(err)
 		}
+		defer keys.Close()
 
-		for res.Next() {
+		for keys.Next() {
 			var keyword string
-			err := res.Scan(&keyword)
+			err := keys.Scan(&keyword)
 			if err != nil {
 				fmt.Println(err)
 			}
@@ -48,7 +59,15 @@ func getJobs(w http.ResponseWriter, r *http.Request) {
 		jobs = append(jobs, job)
 	}
 	defer result.Close()
-	json.NewEncoder(w).Encode(jobs)
+
+	db.QueryRow("SELECT COUNT(JobId) FROM job").Scan(
+		&res.NumberofJobs,
+	)
+
+	res.Jobs = jobs
+	res.Pages = int(math.Ceil(float64(res.NumberofJobs) / 50))
+
+	json.NewEncoder(w).Encode(res)
 }
 
 type Keyword struct {
@@ -68,17 +87,28 @@ func search(w http.ResponseWriter, r *http.Request) {
 		Input     string   `json:"input"`
 		Locations []string `json:"locations"`
 		Keywords  []string `json:"keywords"`
+		Page      int      `json:"page"`
 	}
 
 	var search Search
+
+	type Response struct {
+		Jobs         []JobPreview `json:"jobs"`
+		NumberofJobs int          `json:"numberofJobs"`
+		Pages        int          `json:"pages"`
+	}
+	var res Response
+
 	var jobs []JobPreview
 	json.NewDecoder(r.Body).Decode(&search)
+	page, _ := strconv.Atoi(r.URL.Query().Get("page"))
+	search.Page = page
 
 	var query string
 	var args []interface{}
 
 	query =
-		`SELECT 
+		`SELECT
 						JobId,
 						Title, 
 						Occupation, 
@@ -116,7 +146,8 @@ func search(w http.ResponseWriter, r *http.Request) {
 		}
 
 	}
-	query += "LIMIT 50;"
+
+	query += "LIMIT " + strconv.Itoa(search.Page*50) + ",50;"
 	if search.Input != "" {
 		args = append(args, search.Input)
 	}
@@ -141,18 +172,19 @@ func search(w http.ResponseWriter, r *http.Request) {
 				fmt.Println(err)
 			}
 
-			res, err := db.Query("SELECT Label FROM keywords WHERE JobId = ?", job.JobId)
+			keys, err := db.Query("SELECT Label FROM keywords WHERE JobId = ?", job.JobId)
 			if err != nil {
 				fmt.Println(err)
 			}
+			defer keys.Close()
 
-			for res.Next() {
+			for keys.Next() {
 				var keyword string
-				err := res.Scan(&keyword)
+				err := keys.Scan(&keyword)
 				if err != nil {
 					fmt.Println(err)
 				}
-				fmt.Println(keyword)
+
 				job.Keywords = append(job.Keywords, keyword)
 			}
 
@@ -161,7 +193,16 @@ func search(w http.ResponseWriter, r *http.Request) {
 		}
 
 		defer result.Close()
-		json.NewEncoder(w).Encode(jobs)
+
+		db.QueryRow(totalRowsSQL(search.Input, search.Locations, search.Keywords), args...).Scan(
+			&res.NumberofJobs,
+		)
+
+		res.Jobs = jobs
+		res.Pages = int(math.Ceil(float64(res.NumberofJobs) / 50))
+
+		fmt.Println(len(jobs))
+		json.NewEncoder(w).Encode(res)
 	}
 }
 

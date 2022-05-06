@@ -3,16 +3,21 @@ import axios from 'axios';
 import { JobResultData } from './job-results/types';
 import Search from './search/Search';
 import TopBar from './top-bar/TopBar';
-import { Container, Content, Align } from './styles/Styles';
+import { Container, Content, Align, JobCounter } from './styles/Styles';
 import { useQuery } from 'react-query';
 import JobResults from './job-results/JobResults';
+import { ReactQueryDevtools } from 'react-query/devtools';
+import Pagination from './components/pagination/Pagination';
 
 function App() {
   const [jobResults, setJobResults] = useState<JobResultData[]>([]);
   const [inputValue, setInputValue] = useState<string>('');
   const [keywordValue, setKeywordValue] = useState<string[]>([]);
   const [locationValue, setLocationValue] = useState<string[]>([]);
+  const [page, setPage] = useState<number>(0);
   const cardRef = useRef<HTMLDivElement>(null);
+  const [pages, setPages] = useState<number>();
+  const [nJobs, setNJobs] = useState<number>(0);
 
   const paramsSet = (): boolean =>
     inputValue === '' &&
@@ -20,16 +25,21 @@ function App() {
     keywordValue.length === 0;
 
   const { data, isLoading, isFetching, refetch } = useQuery(
-    'jobs',
+    ['jobs', page],
     async () =>
       paramsSet()
-        ? await axios.get('http://localhost:8000/api/jobs')
-        : await axios.post('http://localhost:8000/api/search', {
+        ? await axios.get('http://localhost:8000/api/jobs?page=' + page)
+        : await axios.post('http://localhost:8000/api/search?page=' + page, {
             input: inputValue,
             locations: locationValue,
             keywords: keywordValue,
           }),
-    { enabled: false, refetchOnWindowFocus: false }
+    {
+      enabled: false,
+      refetchOnWindowFocus: false,
+      keepPreviousData: true,
+      staleTime: 60000,
+    }
   );
 
   useEffect(() => {
@@ -37,8 +47,17 @@ function App() {
   }, [data]);
 
   useEffect(() => {
-    if (data) setJobResults(data.data);
+    if (data) {
+      setJobResults(data.data.jobs);
+      setPages(data.data.pages);
+      setNJobs(data.data.numberofJobs);
+    }
   }, [jobResults]);
+
+  useEffect(() => {
+    if (nJobs === 0) return;
+    refetch();
+  }, [page]);
 
   const addKeyword = (keyword: string, e?: React.MouseEvent) => {
     e?.stopPropagation();
@@ -46,6 +65,7 @@ function App() {
       setKeywordValue([]);
       return;
     }
+
     if (keywordValue.includes(keyword)) {
       setKeywordValue(keywordValue.filter((k) => k !== keyword));
     } else {
@@ -79,6 +99,7 @@ function App() {
 
   const search = async (e: React.SyntheticEvent) => {
     e.preventDefault();
+    setPage(0);
     refetch();
   };
 
@@ -100,13 +121,29 @@ function App() {
             locationValue={locationValue}
             setLocationValue={addLocation}
           />
+
+          {nJobs && (
+            <JobCounter>
+              <span>
+                Showing {page * 50} -{' '}
+                {page + 1 !== pages ? (page + 1) * 50 : nJobs} of
+              </span>{' '}
+              {nJobs} <span>jobs</span>
+            </JobCounter>
+          )}
+
           <JobResults
             jobResults={jobResults}
             isLoading={isLoading}
             isFetching={isFetching}
           />
+
+          {pages && (
+            <Pagination currentPage={page} pages={pages} setPage={setPage} />
+          )}
         </Align>
       </Content>
+      <ReactQueryDevtools />
     </Container>
   );
 }

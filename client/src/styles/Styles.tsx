@@ -12,6 +12,7 @@ export const Container = styled.div`
 `;
 
 export const Content = styled.div`
+  box-sizing: border-box;
   height: calc(100% - 85px);
   overflow: auto;
   width: 100vw;
@@ -40,4 +41,17 @@ export const ResultsContainer = styled.div`
   width: 640px;
   z-index: 5;
   background-color: #121212;
+`;
+
+export const JobCounter = styled.h1`
+  color: white;
+  margin: 0 0 10px 0;
+  font-size: 14px;
+  font-family: Epilogue-Bold;
+
+  span {
+    font-family: Epilogue-Bold;
+    font-size: 14px;
+    color: #818181;
+  }
 `;
