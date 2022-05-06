@@ -59,6 +59,7 @@ export const KeywordsContainer = styled.div`
   display: flex;
   margin-top: 10px;
   position: relative;
+  user-select: none;
 `;
 
 export const Keyword = styled.p`
@@ -78,8 +79,9 @@ export const ArrowContainer = styled.div`
 `;
 
 export const Arrow = styled(motion.div)<{ expanded: boolean }>`
-  height: 10px;
-  width: 10px;
+  height: 15px;
+  width: 15px;
+  scale: 1.5;
   display: flex;
   align-items: center;
   justify-content: center;

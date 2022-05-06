@@ -26,6 +26,7 @@ const JobResult = (props: Props) => {
 
   return (
     <Container
+      onClick={() => props.showPreview(jobId)}
       initial={{ opacity: 0, translateY: -100 }}
       animate={{ opacity: 1, translateY: 0 }}
       transition={{
@@ -46,7 +47,6 @@ const JobResult = (props: Props) => {
       </KeywordsContainer>
       <ArrowContainer>
         <Arrow
-          onClick={() => props.showPreview(jobId)}
           animate={{ rotate: showJobPreview === jobId ? 180 : 0 }}
           transition={{
             type: 'spring',
