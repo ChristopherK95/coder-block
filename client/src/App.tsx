@@ -17,7 +17,7 @@ function App() {
   const [page, setPage] = useState<number>(0);
   const cardRef = useRef<HTMLDivElement>(null);
   const [pages, setPages] = useState<number>();
-  const [nJobs, setNJobs] = useState<number>();
+  const [nJobs, setNJobs] = useState<number>(0);
 
   const paramsSet = (): boolean =>
     inputValue === '' &&
@@ -54,7 +54,6 @@ function App() {
     }
   }, [jobResults]);
 
-
   useEffect(() => {
     if (nJobs === 0) return;
     refetch();
@@ -66,7 +65,7 @@ function App() {
       setKeywordValue([]);
       return;
     }
-    
+
     if (keywordValue.includes(keyword)) {
       setKeywordValue(keywordValue.filter((k) => k !== keyword));
     } else {
