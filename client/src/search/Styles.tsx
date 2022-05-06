@@ -95,6 +95,7 @@ export const FilterButton = styled.div<{
   cursor: pointer;
   user-select: none;
   :hover {
+    color: #48bf5a;
   }
 `;
 
