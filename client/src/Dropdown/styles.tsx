@@ -53,6 +53,15 @@ export const DropdownContainer = styled(motion.div)<{
   }`} */
 `;
 
+export const Arrow = styled(motion.div)<{ expanded: boolean }>`
+  height: 10px;
+  width: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  fill: ${(p) => (p.expanded ? '#48bf5a' : 'white')};
+`;
+
 export const StyledKeyword = styled(motion.div)<{ toggled: boolean }>`
   display: flex;
   align-items: center;
@@ -61,7 +70,7 @@ export const StyledKeyword = styled(motion.div)<{ toggled: boolean }>`
   user-select: none;
   cursor: pointer;
   :hover {
-    background-color: ${(p) => (p.toggled ? '' : '#5e5e5e')};
+    color: #48bf5a;
   }
   :active {
     background-color: #303030;
@@ -73,13 +82,17 @@ export const StyledLocation = styled(motion.div)<{ expanded: boolean }>`
   display: flex;
   align-items: center;
   flex-direction: row;
-  justify-content: space-between;
+  justify-content: flex-start;
   margin: 0;
   padding: 5px 10px 5px 20px;
+  color: ${(p) => (p.expanded ? '#48bf5a' : 'white')};
   user-select: none;
   cursor: pointer;
   :hover {
-    background-color: ${(p) => (p.expanded ? '' : '#5e5e5e')};
+    color: #48bf5a;
+    ${Arrow} {
+      fill: #48bf5a;
+    }
   }
   :active {
     background-color: #303030;
@@ -144,15 +157,15 @@ export const Resize = styled(motion.div)`
 `;
 
 export const ItemContainer = styled(motion.div)<{ toggledLocation: boolean }>`
-  padding: 0px 0 0px 25px;
-  background: #48484a;
+  padding: 0px 0 0px 30px;
+  background: #3d3d3d;
   overflow: hidden;
   display: flex;
   align-items: center;
   user-select: none;
   cursor: pointer;
   :hover {
-    background-color: ${(p) => (p.toggledLocation ? '' : '#5e5e5e')};
+    background-color: transparent;
   }
 `;
 
@@ -178,7 +191,7 @@ export const ExpandedSection = styled(motion.div)<{ toggledLocation: boolean }>`
 `;
 
 export const ExpandedItem = styled(motion.div)`
-  height: 25px;
+  padding: 5px 0 5px 0;
   display: flex;
   align-items: center;
 `;
@@ -188,15 +201,6 @@ export const ArrowContainer = styled.div`
   position: relative;
   cursor: pointer;
   border-radius: 4px;
-`;
-
-export const Arrow = styled(motion.div)<{ expanded: boolean }>`
-  height: 10px;
-  width: 10px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  fill: ${(p) => (p.expanded ? '#48bf5a' : 'white')};
 `;
 
 export const NameContainer = styled.div`
