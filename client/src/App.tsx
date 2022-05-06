@@ -8,6 +8,7 @@ import { useQuery } from 'react-query';
 import JobResults from './job-results/JobResults';
 import { ReactQueryDevtools } from 'react-query/devtools';
 import Pagination from './components/pagination/Pagination';
+import EmptyResult from './components/EmptyResult/EmptyResult';
 
 function App() {
   const [jobResults, setJobResults] = useState<JobResultData[]>([]);
@@ -122,7 +123,7 @@ function App() {
             setLocationValue={addLocation}
           />
 
-          {nJobs && (
+          {nJobs !== 0 && (
             <JobCounter>
               <span>
                 Showing {page * 50} -{' '}
@@ -138,8 +139,15 @@ function App() {
             isFetching={isFetching}
           />
 
-          {pages && (
-            <Pagination currentPage={page} pages={pages} setPage={setPage} />
+          {pages ? (
+            <Pagination
+              currentPage={page}
+              pages={pages}
+              setPage={setPage}
+              scrollToTop={scrollToTop}
+            />
+          ) : (
+            pages !== undefined && <EmptyResult />
           )}
         </Align>
       </Content>

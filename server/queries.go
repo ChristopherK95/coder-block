@@ -23,7 +23,7 @@ func totalRowsSQL(input string, locations []string, keywords []string) string {
 
 	for i := 0; i < len(keywords); i++ {
 		if i == 0 && input == "" && len(locations) == 0 {
-			sql += " EXISTS (SELECT JobId FROM keywords WHERE Label = ? and job.JobId = keywords.JobId) "
+			sql += " WHERE EXISTS (SELECT JobId FROM keywords WHERE Label = ? and job.JobId = keywords.JobId) "
 		} else {
 			sql += " AND EXISTS (SELECT JobId FROM keywords WHERE Label = ? and job.JobId = keywords.JobId) "
 		}
