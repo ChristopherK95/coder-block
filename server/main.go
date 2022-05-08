@@ -256,8 +256,8 @@ func getJob(w http.ResponseWriter, r *http.Request) {
 		}
 		job.Keywords = append(job.Keywords, keyword)
 	}
-	// }
-	// defer result.Close()
+	defer result.Close()
+  
 	json.NewEncoder(w).Encode(job)
 }
 
