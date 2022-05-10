@@ -193,7 +193,7 @@ func search(w http.ResponseWriter, r *http.Request) {
 		}
 
 		defer result.Close()
-		
+
 		db.QueryRow(totalRowsSQL(search.Input, search.Locations, search.Keywords), args...).Scan(
 			&res.NumberofJobs,
 		)
@@ -201,7 +201,6 @@ func search(w http.ResponseWriter, r *http.Request) {
 		res.Jobs = jobs
 		res.Pages = int(math.Ceil(float64(res.NumberofJobs) / 50))
 
-		fmt.Println(len(jobs))
 		json.NewEncoder(w).Encode(res)
 	}
 }

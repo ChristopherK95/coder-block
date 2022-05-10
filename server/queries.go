@@ -12,22 +12,26 @@ func totalRowsSQL(input string, locations []string, keywords []string) string {
 	for i := 0; i < len(locations); i++ {
 		if i != 0 {
 			sql += " OR Municipality = ?"
+			if i == len(locations)-1 {
+				sql += ")"
+			}
 			continue
 		}
 		if input == "" {
-			sql += " WHERE Municipality = ?"
+			sql += " WHERE (Municipality = ?"
 		} else {
-			sql += " AND Municipality = ?"
+			sql += " AND (Municipality = ?"
 		}
 	}
 
 	for i := 0; i < len(keywords); i++ {
 		if i == 0 && input == "" && len(locations) == 0 {
-			sql += " WHERE EXISTS (SELECT JobId FROM keywords WHERE Label = ? and job.JobId = keywords.JobId) "
+			sql += " WHERE EXISTS (SELECT JobId FROM keywords WHERE Label = ? AND job.JobId = keywords.JobId) "
 		} else {
-			sql += " AND EXISTS (SELECT JobId FROM keywords WHERE Label = ? and job.JobId = keywords.JobId) "
+			sql += " AND EXISTS (SELECT JobId FROM keywords WHERE Label = ? AND job.JobId = keywords.JobId) "
 		}
 	}
 
 	return sql
+
 }
