@@ -55,6 +55,10 @@ const JobPage = () => {
     fetchData();
   }, []);
 
+  useEffect(() => {
+    if (job) document.title = job.title;
+  }, [job]);
+
   const date = new Date().getTime();
   const lastDate = new Date(job?.lastApplicationDate + 'Z').getTime();
   let remainingTime = lastDate - date;
