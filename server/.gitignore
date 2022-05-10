@@ -1,3 +1,4 @@
 /cert
 *.exe
+*.log
 ca-cert.pem

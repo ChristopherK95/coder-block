@@ -215,8 +215,7 @@ func getJob(w http.ResponseWriter, r *http.Request) {
 		}
 		job.Keywords = append(job.Keywords, keyword)
 	}
-	defer result.Close()
-  
+
 	json.NewEncoder(w).Encode(job)
 }
 
@@ -247,8 +246,13 @@ func main() {
 	r.HandleFunc("/api/jobs", getJobs).Methods("GET")
 	r.HandleFunc("/api/get-job", getJob).Methods("POST", "OPTIONS")
 
-	log.Fatal(http.ListenAndServe(":8000", r))
-	initFetch()
-	time.AfterFunc(duration(), initFetch)
+	go func() {
+		for run := true; run; run = true {
+			log.Println("Initiating: fetching jobs...")
+			jobUpdater()
+			time.Sleep(time.Hour * 24)
+		}
+	}()
 
+	log.Fatal(http.ListenAndServe(":8000", r))
 }

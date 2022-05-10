@@ -1,38 +1,26 @@
 package main
 
 import (
-	"database/sql"
 	"encoding/json"
-	"fmt"
 	"io/ioutil"
+	"log"
 	"net/http"
+	"os"
 	"strconv"
 	"strings"
 	"time"
-
-	"github.com/go-sql-driver/mysql"
 )
 
-var db *sql.DB
-var err error
+// var db *sql.DB
+// var err error
 
-func main() {
-	tlsConf := createTLSConf()
-	err := mysql.RegisterTLSConfig("custom", &tlsConf)
+func jobUpdater() {
+	file, err := os.OpenFile("coderblock-job-updater.log", os.O_RDWR|os.O_CREATE|os.O_APPEND, 0666)
 	if err != nil {
-		fmt.Println(err)
+		log.Fatalf("error opening file: %v", err)
 	}
-
-	db, err = sql.Open("mysql", "chrkar:Swoleness[{}]1995@tcp(codeblock-db-dev.mysql.database.azure.com:3306)/codeblock_dev?tls=true")
-	if err != nil {
-		fmt.Println(err)
-	}
-	defer db.Close()
-
-	err = db.Ping()
-	if err != nil {
-		fmt.Println(err)
-	}
+	defer file.Close()
+	log.SetOutput(file)
 
 	var links []string
 	date := strings.Split(time.Now().AddDate(0, 0, -1).Format(time.RFC3339), "T")[0] + "T22:00:00.000Z"
@@ -50,13 +38,13 @@ func main() {
 	for i := 0; i < len(links); i++ {
 		job := getAd(links[i])
 		jobs = append(jobs, job)
-		fmt.Println("Fetched " + strconv.Itoa(len(jobs)) + "/" + strconv.Itoa(len(links)) + " links")
+		log.Println("Fetched " + strconv.Itoa(len(jobs)) + "/" + strconv.Itoa(len(links)) + " links")
 	}
 
-	fmt.Println("Sending jobs")
+	log.Println("Sending jobs")
 	for i := 0; i < len(jobs); i++ {
 		sendToDB(jobs[i])
-		fmt.Println(strconv.Itoa(i+1) + "/" + strconv.Itoa(len(jobs)) + " jobs added to database.")
+		log.Println(strconv.Itoa(i+1) + "/" + strconv.Itoa(len(jobs)) + " jobs added to database.")
 	}
 }
 
@@ -84,13 +72,13 @@ func getAds(index string, region string, date string) (adIds []string) {
 
 	res, err := http.DefaultClient.Do(req)
 	if err != nil {
-		fmt.Println(err)
+		log.Println(err)
 	}
 
 	defer res.Body.Close()
 	body, err := ioutil.ReadAll(res.Body)
 	if err != nil {
-		fmt.Println(err)
+		log.Println(err)
 	}
 
 	in := []byte(string(body))
@@ -99,7 +87,7 @@ func getAds(index string, region string, date string) (adIds []string) {
 
 	err = json.Unmarshal(in, &iot)
 	if err != nil {
-		fmt.Println(err)
+		log.Println(err)
 	}
 
 	var ads []string
@@ -144,13 +132,13 @@ func getAdsOther(index string, region string, date string) (ads []Ad) {
 
 	res, err := http.DefaultClient.Do(req)
 	if err != nil {
-		fmt.Println(err)
+		log.Println(err)
 	}
 
 	defer res.Body.Close()
 	body, err := ioutil.ReadAll(res.Body)
 	if err != nil {
-		fmt.Println(err)
+		log.Println(err)
 	}
 
 	in := []byte(string(body))
@@ -159,7 +147,7 @@ func getAdsOther(index string, region string, date string) (ads []Ad) {
 
 	err = json.Unmarshal(in, &iot)
 	if err != nil {
-		fmt.Println(err)
+		log.Println(err)
 	}
 
 	return iot.Ads
@@ -186,7 +174,7 @@ func getAd(id string) (jobData ScrapedJob) {
 
 	res, err := http.DefaultClient.Do(req)
 	if err != nil {
-		fmt.Println(err)
+		log.Println(err)
 	}
 
 	defer res.Body.Close()
@@ -198,7 +186,7 @@ func getAd(id string) (jobData ScrapedJob) {
 
 	err = json.Unmarshal(in, &iot)
 	if err != nil {
-		fmt.Println(err)
+		log.Println(err)
 	}
 
 	var job ScrapedJob
@@ -262,7 +250,7 @@ func stringInArr(list []string, item string) bool {
 }
 
 func sendToDB(job ScrapedJob) {
-	_, err = db.Exec("INSERT INTO job (JobId, Title, Occupation, CompanyName, Region, Municipality, Description, ApplyLink, Email, PublishedDate, LastApplicationDate, Positions) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);",
+	_, err := db.Exec("INSERT INTO job (JobId, Title, Occupation, CompanyName, Region, Municipality, Description, ApplyLink, Email, PublishedDate, LastApplicationDate, Positions) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);",
 		job.JobId,
 		job.Title,
 		job.Occupation,
@@ -285,6 +273,6 @@ func sendToDB(job ScrapedJob) {
 	}
 
 	if err != nil {
-		fmt.Println(err)
+		log.Println(err)
 	}
 }

@@ -115,3 +115,24 @@ type JobPreview struct {
 type KeywordLabel struct {
 	Label string `json:"label"`
 }
+
+type Ad struct {
+	Id                   string `json:"id"`
+	PublishedDate        string `json:"publishedDate"`
+	LastApplicationDate  string `json:"lastApplicationDate"`
+	Title                string `json:"title"`
+	Occupation           string `json:"occupation"`
+	Workplace            string `json:"workplace"`
+	WorkplaceName        string `json:"workplaceName"`
+	UnspecifiedWorkplace bool   `json:"unspecifiedWorkplace"`
+	Published            bool   `json:"published"`
+	Positions            int    `json:"positions"`
+	SourceLinks          string `json:"sourceLinks"`
+}
+
+type Iot struct {
+	Positions   int  `json:"id"`
+	NumberOfAds int  `json:"numberOfAds"`
+	OffsetLimit int  `json:"offsetLimit"`
+	Ads         []Ad `json:"ads"`
+}
